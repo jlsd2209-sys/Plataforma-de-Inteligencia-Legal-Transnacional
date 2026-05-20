@@ -80,7 +80,7 @@ export const Header = () => {
                 isLogoHovered ? 'gradient-text-gold' : 'text-white'
               }`}
             >
-              Plataforma de Inteligencia Legal Transnacional
+              Plataforma Legal Transnacional
             </span>
           </a>
 
