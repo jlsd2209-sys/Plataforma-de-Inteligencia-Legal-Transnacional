@@ -51,7 +51,7 @@ export const Footer = () => {
                   Unidad de Asuntos Transnacionales & IA
                 </span>
                 <span className="relative text-white group-hover:opacity-0 transition-opacity duration-300">
-                  Unidad de Asuntos Transnacionales & IA
+                  Plataforma de Inteligencia Legal Transnacional
                 </span>
               </div>
             </a>
@@ -142,7 +142,7 @@ export const Footer = () => {
 
         <div className="text-center pt-8 border-t border-gold/10">
           <p className="text-cream-light/60 text-sm">
-            © 2026 Unidad de Asuntos Transnacionales & IA. Todos los derechos reservados.
+            © 2026 Plataforma de Inteligencia Legal Transnacional. Todos los derechos reservados.
           </p>
         </div>
       </div>
