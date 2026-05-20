@@ -69,7 +69,7 @@ export const ServicesSection = () => {
       <div className="relative z-20 container mx-auto px-4 md:px-8">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
           <h2 className={`${TITLE_SIZE} font-serif font-bold gradient-text-gold`}>
-            Centro de Inteligencia Transnacional
+            Centro de Inteligencia Legal Transnacional
           </h2>
         </motion.div>
         
