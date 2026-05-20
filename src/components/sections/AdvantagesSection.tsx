@@ -43,7 +43,7 @@ export const AdvantagesSection = () => {
         >
           {/* Hemos reducido dramáticamente el tamaño de la fuente para que sea un sub-título */}
           <h2 className="text-3xl md:text-4xl lg:text-4xl font-serif font-bold mb-6 gradient-text-gold pb-2">           
-            ¿Unidad de Asuntos Transnacionales & IA?
+            ¿Plataforma de Inteligencia Legal Transnacional?
           </h2>
         </motion.div>
 
