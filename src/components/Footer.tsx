@@ -48,7 +48,7 @@ export const Footer = () => {
               </div>
               <div className="relative whitespace-normal lg:whitespace-nowrap">
                 <span className="absolute inset-0 gradient-text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Unidad de Asuntos Transnacionales & IA
+                  Plataforma de Inteligencia Legal Transnacional
                 </span>
                 <span className="relative text-white group-hover:opacity-0 transition-opacity duration-300">
                   Plataforma de Inteligencia Legal Transnacional
