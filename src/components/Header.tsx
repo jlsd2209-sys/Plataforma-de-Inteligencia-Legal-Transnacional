@@ -80,7 +80,7 @@ export const Header = () => {
                 isLogoHovered ? 'gradient-text-gold' : 'text-white'
               }`}
             >
-              Unidad de Asuntos Transnacionales & IA
+              Plataforma de Inteligencia Legal Transnacional
             </span>
           </a>
 
