@@ -45,7 +45,7 @@ export const HeroSection = () => {
           /* CAMBIO 1: mb-6 -> mb-3 md:mb-6 (Compactamos el margen inferior solo en móvil)
             CAMBIO 2: pb-2 -> pb-0 md:pb-2 (Eliminamos el padding inferior en móvil, mantenemos md:)
           */
-          className="text-4xl md:text-4xl lg:text-6xl font-serif font-bold mb-3 md:mb-6 gradient-text-gold leading-tight pb-0 md:pb-1"
+          className="text-4xl md:text-4xl lg:text-5xl font-serif font-bold mb-3 md:mb-6 gradient-text-gold leading-tight pb-0 md:pb-1"
         >
           Innovación y Eficiencia Legal con IA 
         </motion.h1>
