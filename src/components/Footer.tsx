@@ -48,10 +48,10 @@ export const Footer = () => {
               </div>
               <div className="relative whitespace-normal lg:whitespace-nowrap">
                 <span className="absolute inset-0 gradient-text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Plataforma de Inteligencia Legal Transnacional
+                  Plataforma Legal Transnacional
                 </span>
                 <span className="relative text-white group-hover:opacity-0 transition-opacity duration-300">
-                  Plataforma de Inteligencia Legal Transnacional
+                  Plataforma Legal Transnacional
                 </span>
               </div>
             </a>
@@ -142,7 +142,7 @@ export const Footer = () => {
 
         <div className="text-center pt-8 border-t border-gold/10">
           <p className="text-cream-light/60 text-sm">
-            © 2026 Plataforma de Inteligencia Legal Transnacional. Todos los derechos reservados.
+            © 2026 Plataforma Legal Transnacional. Todos los derechos reservados.
           </p>
         </div>
       </div>
