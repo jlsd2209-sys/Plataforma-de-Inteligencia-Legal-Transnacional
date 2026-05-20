@@ -53,7 +53,7 @@ export const FloatingButtons = () => {
   const initialMessage: Message = { 
     id: 'welcome', 
     sender: 'bot', 
-    text: '¡Hola! Soy el Asesor Virtual de la Unidad de Asuntos Transnacionales. ¿Te gustaría conocer nuestros servicios o agendar una consulta con un experto?' 
+    text: '¡Hola! Soy el Asesor Virtual de la Plataforma de Inteligencia Legal Transnacional. ¿Te gustaría conocer nuestros servicios o agendar una consulta con un experto?' 
   };
 
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
