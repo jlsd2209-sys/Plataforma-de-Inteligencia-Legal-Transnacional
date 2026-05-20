@@ -862,7 +862,7 @@ export default function AsistentePage() {
             <img src={logoShield} alt="LAP Global Logo" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(197,160,89,0.4)]" />
           </div>
           <h2 className={`text-center text-[11px] uppercase tracking-widest font-bold transition-all duration-300 ${isLogoHovered ? 'gradient-text-gold' : 'text-white'} ${isDesktopSidebarCollapsed ? 'md:hidden' : ''}`}>
-            Plataforma de Inteligencia Legal Transnacional
+            Plataforma Legal Transnacional
           </h2>
         </div>
 
