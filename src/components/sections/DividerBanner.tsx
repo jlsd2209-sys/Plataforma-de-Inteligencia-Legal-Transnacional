@@ -23,7 +23,7 @@ export const DividerBanner = () => {
               LAP G<span className="text-base md:text-xl">LOBAL</span>
             </span>
             <span className="text-gold-bright font-semibold text-xs md:text-sm tracking-[0.2em] uppercase">
-              Unidad de Inteligencia Transnacional & IA
+              Plataforma de Inteligencia Legal Transnacional
             </span>
           </div>
         </div>
