@@ -23,53 +23,22 @@
 
   <body>
     <div id="root">
-      <div id="app-loader" style="display: flex; flex-direction: column; height: 100vh; width: 100vw; align-items: center; justify-content: center; background-color: #0a1526; font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; overflow: hidden; position: fixed; top: 0; left: 0; z-index: 9999; transition: opacity 0.5s ease; pointer-events: none;">
+      <div style="display: flex; flex-direction: column; height: 100vh; width: 100vw; align-items: center; justify-content: center; background-color: #0a1526; font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0;">
         
-        <video 
-          id="loader-video-player"
-          src="/loader-video.mp4.mp4" 
-          autoplay 
-          loop 
-          muted 
-          playsinline
-          style="width: 100%; height: 100%; object-fit: cover; max-width: 100%; max-height: 100%;"
-        ></video>
+        <div style="width: 45px; height: 45px; border: 3px solid rgba(197, 160, 89, 0.2); border-top-color: #c5a059; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        
+        <p style="color: #c5a059; margin-top: 24px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 500;">
+          Iniciando Ecosistema
+        </p>
 
         <style>
           body { margin: 0; background-color: #0a1526; overflow: hidden; }
+          @keyframes spin { 
+            to { transform: rotate(360deg); } 
+          }
         </style>
       </div>
     </div>
-    
     <script type="module" src="/src/main.tsx"></script>
-
-    <script>
-      window.addEventListener('load', () => {
-        const loader = document.getElementById('app-loader');
-        const video = document.getElementById('loader-video-player');
-
-        // Forzamos la reproducción del video si existe
-        if (video) {
-          video.play().catch(error => {
-            console.log("El navegador bloqueó el autoplay inicial, intentando reproducir forzosamente.", error);
-            // Si falla, re-intentamos silenciando explícitamente (doble seguridad)
-            video.muted = true;
-            video.play();
-          });
-        }
-
-        // Gestión del desvanecimiento cuando React esté listo
-        if (loader) {
-          // Un pequeño delay para asegurar que el video se vea al menos un momento antes de desvanecerse
-          setTimeout(() => {
-            loader.style.opacity = '0';
-            setTimeout(() => {
-              loader.remove();
-              document.body.style.overflow = 'auto';
-            }, 500); // Duración de la transición CSS
-          }, 100); // Delay mínimo de cortesía
-        }
-      });
-    </script>
   </body>
 </html>
