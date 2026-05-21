@@ -23,11 +23,11 @@
 
   <body>
     <div id="root">
-      <!-- CAMBIO REALIZADO: Se añadió id, propiedad transition y pointer-events para el efecto de desvanecimiento -->
       <div id="app-loader" style="display: flex; flex-direction: column; height: 100vh; width: 100vw; align-items: center; justify-content: center; background-color: #0a1526; font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; overflow: hidden; position: fixed; top: 0; left: 0; z-index: 9999; transition: opacity 0.5s ease; pointer-events: none;">
         
         <video 
-          src="loader-video.mp4.mp4" 
+          id="loader-video-player"
+          src="/loader-video.mp4" 
           autoplay 
           loop 
           muted 
@@ -43,16 +43,31 @@
     
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- CAMBIO REALIZADO: Script encargado de ejecutar el desvanecimiento una vez que la app de React está lista en el DOM -->
     <script>
       window.addEventListener('load', () => {
         const loader = document.getElementById('app-loader');
+        const video = document.getElementById('loader-video-player');
+
+        // Forzamos la reproducción del video si existe
+        if (video) {
+          video.play().catch(error => {
+            console.log("El navegador bloqueó el autoplay inicial, intentando reproducir forzosamente.", error);
+            // Si falla, re-intentamos silenciando explícitamente (doble seguridad)
+            video.muted = true;
+            video.play();
+          });
+        }
+
+        // Gestión del desvanecimiento cuando React esté listo
         if (loader) {
-          loader.style.opacity = '0';
+          // Un pequeño delay para asegurar que el video se vea al menos un momento antes de desvanecerse
           setTimeout(() => {
-            loader.remove();
-            document.body.style.overflow = 'auto';
-          }, 500);
+            loader.style.opacity = '0';
+            setTimeout(() => {
+              loader.remove();
+              document.body.style.overflow = 'auto';
+            }, 500); // Duración de la transición CSS
+          }, 100); // Delay mínimo de cortesía
         }
       });
     </script>
