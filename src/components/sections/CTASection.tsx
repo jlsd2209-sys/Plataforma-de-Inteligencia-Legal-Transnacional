@@ -36,7 +36,7 @@ export const CTASection = () => {
 
             {/* ESTILO DEL BOTÓN ACTUALIZADO PARA COINCIDIR CON EL HERO */}
             <a
-              href="https://wa.me/5491126770449?text=Hola,%20quiero%20una%20consulta%20sobre%20servicios%20de%20IA%20legal"
+              href="https://wa.me/5491126770449?text=Hola,%20quiero%20una%20consulta%20sobre%20sus%20servicios%20legales"
               target="_blank"
               rel="noopener noreferrer"
               className="button-pulse inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-gold to-gold-bright text-navy-dark font-semibold rounded-full transition-all hover:shadow-xl hover:shadow-gold/40"
