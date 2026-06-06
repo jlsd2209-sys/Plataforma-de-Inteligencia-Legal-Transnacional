@@ -4,7 +4,7 @@ import logoShield from '@/assets/logo.png.png';
 const socialLinks = [
   { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
   { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-  { icon: MessageCircle, href: 'https://wa.me/5491126770449', label: 'WhatsApp' }
+  { icon: MessageCircle, href: 'https://wa.me/5491126770449?text=Hola,%20quiero%20una%20consulta%20sobre%20sus%20servicios%20legales', label: 'WhatsApp' }
 ];
 
 const navLinks = [
