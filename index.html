@@ -27,40 +27,54 @@
   <body>
     <div id="root">
 
-      <!-- ═══ LOADER CON VIDEO (reemplaza el spinner) ════════════ -->
+      <!-- ═══ PANTALLA DE CARGA — Logo + Spinner ═════════════════ -->
       <div id="app-loader" style="
         position: fixed; inset: 0; z-index: 9999;
         display: flex; flex-direction: column;
         align-items: center; justify-content: center;
-        background-color: #0a1526;
+        gap: 32px;
+        background: radial-gradient(ellipse at center, #0d1f3c 0%, #0a1526 60%, #030712 100%);
         font-family: system-ui, -apple-system, sans-serif;
       ">
-        <!-- Video de fondo -->
-        <video autoplay muted loop playsinline style="
-          position: absolute; top: 0; left: 0;
-          width: 100%; height: 100%;
-          object-fit: cover; opacity: 0.9;
-        ">
-          <source src="/loader-video-small.mp4" type="video/mp4" />
-        </video>
+        <!-- Logo grande -->
+        <img
+          src="/Logo con efecto.png"
+          alt="Plataforma Legal Transnacional"
+          style="
+            width: min(260px, 65vw);
+            height: auto;
+            animation: glow 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(197,160,89,0.4));
+          "
+        />
 
-        <!-- Texto pulsante sobre el video -->
+        <!-- Spinner dorado -->
+        <div style="
+          width: 42px; height: 42px;
+          border: 3px solid rgba(197,160,89,0.15);
+          border-top-color: #c5a059;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        "></div>
+
+        <!-- Texto -->
         <p style="
-          position: relative; z-index: 2;
           color: #c5a059; margin: 0;
-          font-size: 11px; letter-spacing: 3px;
+          font-size: 11px; letter-spacing: 4px;
           text-transform: uppercase; font-weight: 500;
-          animation: pulse 2s ease-in-out infinite;
+          animation: pulse 2.5s ease-in-out infinite;
         ">Iniciando Ecosistema</p>
 
         <style>
           body { margin: 0; background-color: #0a1526; overflow: hidden; }
-          @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-          @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
-          #app-loader.fade-out { animation: fadeOut 0.7s ease forwards; }
+          @keyframes spin    { to { transform: rotate(360deg); } }
+          @keyframes pulse   { 0%,100%{opacity:1} 50%{opacity:0.3} }
+          @keyframes glow    { 0%,100%{filter:drop-shadow(0 0 18px rgba(197,160,89,0.35))} 50%{filter:drop-shadow(0 0 32px rgba(197,160,89,0.65))} }
+          @keyframes fadeOut { to { opacity:0; pointer-events:none; } }
+          #app-loader.fade-out { animation: fadeOut 0.8s ease forwards; }
         </style>
       </div>
-      <!-- ═══ FIN LOADER ══════════════════════════════════════════ -->
+      <!-- ═══ FIN PANTALLA DE CARGA ══════════════════════════════ -->
 
     </div>
 
@@ -73,9 +87,9 @@
           var loader = document.getElementById('app-loader');
           if (loader) {
             loader.classList.add('fade-out');
-            setTimeout(function () { loader.remove(); }, 750);
+            setTimeout(function () { loader.remove(); }, 850);
           }
-        }, 900);
+        }, 800);
       });
 
       // PWA Service Worker
