@@ -2,43 +2,67 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
+    <!-- ═══ PWA — Solo estas líneas son nuevas ════════════════════ -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0a1526" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Unidad de IA" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <!-- ══════════════════════════════════════════════════════════ -->
+
+    <!-- Tu viewport original + agregado maximum-scale para el chat -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- Tu favicon original — SIN CAMBIOS -->
     <link rel="icon" type="image/jpeg" href="/logo.navegador.png" />
 
     <title>Plataforma Legal Transnacional</title>
     <meta name="description" content="Servicios legales potenciados con Inteligencia Artificial para Argentina y Venezuela. Automatización legal de última generación." />
     <meta name="keywords" content="servicios legales IA, abogados inteligencia artificial, automatización legal Argentina, legal tech Venezuela," />
     <meta name="author" content="Plataforma de Inteligencia Legal Transnacional" />
-
     <meta property="og:title" content="Inteligencia Artificial al Servicio del Derecho" />
     <meta property="og:description" content="Automatización legal de última generación para bufetes y empresas en Argentina y Venezuela" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
   </head>
-
   <body>
     <div id="root">
+      <!-- Tu spinner original — SIN CAMBIOS -->
       <div style="display: flex; flex-direction: column; height: 100vh; width: 100vw; align-items: center; justify-content: center; background-color: #0a1526; font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0;">
-        
         <div style="width: 45px; height: 45px; border: 3px solid rgba(197, 160, 89, 0.2); border-top-color: #c5a059; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-        
         <p style="color: #c5a059; margin-top: 24px; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 500;">
           Iniciando Ecosistema
         </p>
-
         <style>
           body { margin: 0; background-color: #0a1526; overflow: hidden; }
-          @keyframes spin { 
-            to { transform: rotate(360deg); } 
-          }
+          @keyframes spin { to { transform: rotate(360deg); } }
         </style>
       </div>
     </div>
+
+    <!-- Tu script original — SIN CAMBIOS -->
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- ═══ PWA — Registro del Service Worker (solo esto es nuevo) ═ -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .then(function (reg) {
+              console.log('✅ PWA activa:', reg.scope);
+            })
+            .catch(function (err) {
+              console.warn('⚠️ Service Worker no registrado:', err);
+            });
+        });
+      }
+    </script>
+    <!-- ══════════════════════════════════════════════════════════ -->
   </body>
 </html>
