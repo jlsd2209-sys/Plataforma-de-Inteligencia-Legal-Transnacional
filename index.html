@@ -7,13 +7,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Unidad de IA" />
+    
     <link rel="apple-touch-icon" href="/icon-192x192.png" />
+    
     <link rel="apple-touch-startup-image" href="/Logo durante carga Movil.jpg" />
     
-    <link rel="preload" href="/Logo durante carga Movil.jpg" as="image" media="(max-width: 767px)" />
-    <link rel="preload" href="/Logo durante carga PC.jpeg" as="image" media="(min-width: 768px)" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="icon" type="image/jpeg" href="/logo.navegador.png" />
+    <link rel="icon" type="image/png" href="/logo.navegador.png" />
+    
     <title>Plataforma Legal Transnacional</title>
     <meta name="description" content="Servicios legales potenciados con Inteligencia Artificial para Argentina y Venezuela. Automatización legal de última generación." />
     <meta name="keywords" content="servicios legales IA, abogados inteligencia artificial, automatización legal Argentina, legal tech Venezuela," />
@@ -22,7 +23,6 @@
     <meta property="og:title" content="Plataforma de Inteligencia Legal Transnacional" />
     <meta property="og:description" content="Gestión legal automatizada mediante inteligencia artificial" />
     <meta property="og:type" content="website" />
-    
     <meta property="og:url" content="https://unidadia-web.vercel.app/" />
     <meta property="og:image" content="https://unidadia-web.vercel.app/logo-og.jpg" />
     <meta property="og:image:secure_url" content="https://unidadia-web.vercel.app/logo-og.jpg" />
@@ -35,49 +35,60 @@
     <meta name="twitter:image" content="https://unidadia-web.vercel.app/logo-og.jpg" />
 
     <style>
-      body { margin: 0; background-color: #0a1526; overflow: hidden; }
+      /* Actualizamos el color de fondo general al nuevo azul noche */
+      body { margin: 0; background-color: #05152b; overflow: hidden; }
 
+      /* ========================================== */
+      /* ESTILOS DEL NUEVO LOADER EN VIDEO          */
+      /* ========================================== */
       #app-loader {
-        position: fixed; inset: 0; z-index: 9999;
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: flex-end;
-        background-color: #0a1526;
+        position: fixed; 
+        inset: 0; 
+        z-index: 99999;
+        background-color: #05152b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         overflow: hidden;
+        transition: opacity 0.8s ease-in-out, visibility 0.8s;
+        opacity: 1;
+        visibility: visible;
       }
 
-      #loader-img {
-        position: absolute; inset: 0;
-        width: 100%; height: 100%;
+      .loader-video {
+        width: 100%; 
+        height: 100%;
         object-fit: cover;
-        object-position: center;
-        content: url('/Logo durante carga Movil.jpg');
+        display: none; /* Ocultos por defecto, se activan con Media Queries */
       }
 
-      @media (min-width: 768px) {
-        #loader-img {
-          content: url('/Logo durante carga PC.jpeg');
-        }
+      /* 💻 Mostrar video de PC si la pantalla es horizontal */
+      @media (orientation: landscape) {
+        #video-pc { display: block; }
       }
 
-      #loader-spinner {
-        position: relative; z-index: 2;
-        margin-bottom: 48px;
-        width: 38px; height: 38px;
-        border: 3px solid rgba(197,160,89,0.15);
-        border-top-color: #c5a059;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
+      /* 📱 Mostrar video Móvil si la pantalla es vertical */
+      @media (orientation: portrait) {
+        #video-movil { display: block; }
       }
-    
-      @keyframes spin    { to { transform: rotate(360deg); } }
-      @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
-      #app-loader.fade-out { animation: fadeOut 1.2s ease forwards; }
+
+      /* Clase dinámica para el desvanecimiento */
+      #app-loader.fade-out {
+        opacity: 0; 
+        visibility: hidden;
+      }
     </style>
   </head>
   <body>
+    
     <div id="app-loader">
-      <img id="loader-img" alt="" />
-      <div id="loader-spinner"></div>
+      <video id="video-pc" class="loader-video" autoplay muted playsinline>
+        <source src="/loader-pc.mp4" type="video/mp4" />
+      </video>
+
+      <video id="video-movil" class="loader-video" autoplay muted playsinline>
+        <source src="/loader-movil.mp4" type="video/mp4" />
+      </video>
     </div>
 
     <div id="root"></div>
@@ -85,35 +96,38 @@
     <script type="module" src="/src/main.tsx"></script>
 
     <script>
-  var loaderStart = Date.now();
-  var MIN_DISPLAY = 3000; // 3 segundos por defecto para navegadores web
+      // ==========================================
+      // LÓGICA DEL LOADER Y PWA
+      // ==========================================
+      
+      // Ya no cortamos el tiempo si es standalone, porque queremos 
+      // que el usuario vea la animación completa de 4 segundos.
+      var DISPLAY_TIME = 4000; 
 
-  // 🌟 TRUCO MAESTRO: Si la app se abre instalada en el móvil (standalone),
-  // como el celular ya lo hizo esperar en la pantalla azul nativa,
-  // reducimos nuestra intro a solo 800 milisegundos para evitar la "doble carga".
-  if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-    MIN_DISPLAY = 800; // Tiempo suficiente para que React monte en memoria sin que el usuario espere doble
-  }
+      function hideLoader() {
+        var loader = document.getElementById('app-loader');
+        if (loader) {
+          loader.classList.add('fade-out'); // Inicia el fade CSS de 0.8s
+          
+          setTimeout(function () { 
+            loader.remove(); // Borra el elemento del DOM para liberar memoria
+            document.body.style.overflow = ''; // Restaura el scroll nativo de la app
+          }, 800);
+        }
+      }
+      
+      // Disparar la salida del loader tras los 4 segundos del video
+      setTimeout(hideLoader, DISPLAY_TIME);
 
-  function hideLoader() {
-    var loader = document.getElementById('app-loader');
-    if (loader) {
-      loader.classList.add('fade-out');
-      setTimeout(function () { loader.remove(); }, 1250);
-    }
-  }
-  
-  setTimeout(hideLoader, MIN_DISPLAY);
-
-  // PWA Service Worker
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker
-        .register('/service-worker.js')
-        .then(function (reg) { console.log('✅ PWA activa:', reg.scope); })
-        .catch(function (err) { console.warn('⚠️ SW no registrado:', err); });
-    });
-  }
-</script>
+      // Registro del Service Worker (PWA)
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .then(function (reg) { console.log('✅ PWA activa:', reg.scope); })
+            .catch(function (err) { console.warn('⚠️ SW no registrado:', err); });
+        });
+      }
+    </script>
   </body>
 </html>
