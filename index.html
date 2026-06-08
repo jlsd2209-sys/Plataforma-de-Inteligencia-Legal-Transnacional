@@ -27,50 +27,49 @@
   <body>
     <div id="root">
 
-      <!-- ═══ PANTALLA DE CARGA — Logo + Spinner ═════════════════ -->
+      <!-- ═══ PANTALLA DE CARGA ══════════════════════════════════ -->
       <div id="app-loader" style="
         position: fixed; inset: 0; z-index: 9999;
         display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        gap: 32px;
-        background: radial-gradient(ellipse at center, #0d1f3c 0%, #0a1526 60%, #030712 100%);
+        align-items: center; justify-content: flex-end;
+        background-color: #0a1526;
         font-family: system-ui, -apple-system, sans-serif;
+        overflow: hidden;
       ">
-        <!-- Logo grande -->
+        <!-- Imagen de fondo — ocupa toda la pantalla en móvil, centrada en PC -->
         <img
-          src="/Logo con efecto.png"
-          alt="Plataforma Legal Transnacional"
+          src="/Logo durante carga.png"
+          alt=""
           style="
-            width: min(340px, 80vw);
-            height: auto;
-            animation: glow 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(197,160,89,0.4));
+            position: absolute; top: 0; left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: auto;
+            max-width: 100%;
+            object-fit: cover;
           "
         />
 
-        <!-- Spinner dorado -->
+        <!-- Spinner dorado flotante abajo -->
         <div style="
-          width: 42px; height: 42px;
-          border: 3px solid rgba(197,160,89,0.15);
-          border-top-color: #c5a059;
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-        "></div>
-
-        <!-- Texto -->
-        <p style="
-          color: #c5a059; margin: 0;
-          font-size: 11px; letter-spacing: 4px;
-          text-transform: uppercase; font-weight: 500;
-          animation: pulse 2.5s ease-in-out infinite;
-        ">Iniciando Ecosistema</p>
+          position: relative; z-index: 2;
+          margin-bottom: 48px;
+          display: flex; flex-direction: column;
+          align-items: center; gap: 16px;
+        ">
+          <div style="
+            width: 38px; height: 38px;
+            border: 3px solid rgba(197,160,89,0.15);
+            border-top-color: #c5a059;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+          "></div>
+        </div>
 
         <style>
           body { margin: 0; background-color: #0a1526; overflow: hidden; }
           @keyframes spin    { to { transform: rotate(360deg); } }
-          @keyframes pulse   { 0%,100%{opacity:1} 50%{opacity:0.3} }
-          @keyframes glow    { 0%,100%{filter:drop-shadow(0 0 18px rgba(197,160,89,0.35))} 50%{filter:drop-shadow(0 0 32px rgba(197,160,89,0.65))} }
-          @keyframes fadeOut { to { opacity:0; pointer-events:none; } }
+          @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
           #app-loader.fade-out { animation: fadeOut 0.8s ease forwards; }
         </style>
       </div>
@@ -81,7 +80,6 @@
     <script type="module" src="/src/main.tsx"></script>
 
     <script>
-      // Ocultar loader cuando React termina de montar
       window.addEventListener('load', function () {
         setTimeout(function () {
           var loader = document.getElementById('app-loader');
@@ -89,10 +87,9 @@
             loader.classList.add('fade-out');
             setTimeout(function () { loader.remove(); }, 850);
           }
-        }, 3000);
+        }, 2800);
       });
 
-      // PWA Service Worker
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function () {
           navigator.serviceWorker
