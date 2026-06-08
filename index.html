@@ -23,58 +23,57 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@" />
     <meta name="twitter:image" content="https://unidadia-web.vercel.app/Logo con efecto.png"/>
-  </head>
-  <body>
-    <div id="root">
 
-      <!-- ═══ PANTALLA DE CARGA ══════════════════════════════════ -->
-      <div id="app-loader" style="
+    <style>
+      body { margin: 0; background-color: #0a1526; overflow: hidden; }
+
+      #app-loader {
         position: fixed; inset: 0; z-index: 9999;
         display: flex; flex-direction: column;
         align-items: center; justify-content: flex-end;
         background-color: #0a1526;
-        font-family: system-ui, -apple-system, sans-serif;
         overflow: hidden;
-      ">
-        <!-- Imagen de fondo — ocupa toda la pantalla en móvil, centrada en PC -->
-        <img
-          src="/Logo durante carga.png"
-          alt=""
-          style="
-            position: absolute; top: 0; left: 50%;
-            transform: translateX(-50%);
-            height: 100%;
-            width: auto;
-            max-width: 100%;
-            object-fit: cover;
-          "
-        />
+      }
 
-        <!-- Spinner dorado flotante abajo -->
-        <div style="
-          position: relative; z-index: 2;
-          margin-bottom: 48px;
-          display: flex; flex-direction: column;
-          align-items: center; gap: 16px;
-        ">
-          <div style="
-            width: 38px; height: 38px;
-            border: 3px solid rgba(197,160,89,0.15);
-            border-top-color: #c5a059;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-          "></div>
-        </div>
+      /* Imagen móvil por defecto */
+      #loader-img {
+        position: absolute; inset: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+        object-position: center;
+        content: url('/Logo durante carga Movil.jpg');
+      }
 
-        <style>
-          body { margin: 0; background-color: #0a1526; overflow: hidden; }
-          @keyframes spin    { to { transform: rotate(360deg); } }
-          @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
-          #app-loader.fade-out { animation: fadeOut 0.8s ease forwards; }
-        </style>
+      /* En PC (pantallas >= 768px) usar imagen horizontal */
+      @media (min-width: 768px) {
+        #loader-img {
+          content: url('/Logo durante carga PC.jpeg');
+        }
+      }
+
+      #loader-spinner {
+        position: relative; z-index: 2;
+        margin-bottom: 48px;
+        width: 38px; height: 38px;
+        border: 3px solid rgba(197,160,89,0.15);
+        border-top-color: #c5a059;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin    { to { transform: rotate(360deg); } }
+      @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
+      #app-loader.fade-out { animation: fadeOut 0.8s ease forwards; }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <!-- ═══ PANTALLA DE CARGA ══════════════════════════════════ -->
+      <div id="app-loader">
+        <img id="loader-img" alt="" />
+        <div id="loader-spinner"></div>
       </div>
       <!-- ═══ FIN PANTALLA DE CARGA ══════════════════════════════ -->
-
     </div>
 
     <script type="module" src="/src/main.tsx"></script>
