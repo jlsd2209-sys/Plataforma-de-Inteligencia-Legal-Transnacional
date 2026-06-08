@@ -23,15 +23,15 @@
     <meta property="og:type" content="website" />
     
     <meta property="og:url" content="https://unidadia-web.vercel.app/" />
-    <meta property="og:image" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png?v=1"/>
-    <meta property="og:image:secure_url" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png?v=1"/>
+    <meta property="og:image" content="https://unidadia-web.vercel.app/logo-og.png"/>
+    <meta property="og:image:secure_url" content="https://unidadia-web.vercel.app/logo-og.png"/>
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@" />
-    <meta name="twitter:image" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png?v=1"/>
+    <meta name="twitter:image" content="https://unidadia-web.vercel.app/logo-og.png"/>
 
     <style>
       body { margin: 0; background-color: #0a1526; overflow: hidden; }
@@ -85,7 +85,7 @@
 
     <script>
       var loaderStart = Date.now();
-      var MIN_DISPLAY = 3000; // 3 segundos estrictos garantizados
+      var MIN_DISPLAY = 3000; // 3 segundos de carga de la imagen
 
       function hideLoader() {
         var loader = document.getElementById('app-loader');
@@ -95,7 +95,6 @@
         }
       }
       
-     // Se ejecuta de manera segura exactamente al cumplirse los 3 segundos
       setTimeout(hideLoader, MIN_DISPLAY);
 
       // PWA Service Worker
