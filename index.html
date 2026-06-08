@@ -84,28 +84,35 @@
     <script type="module" src="/src/main.tsx"></script>
 
     <script>
-      var loaderStart = Date.now();
-      var MIN_DISPLAY = 3000; // 3 segundos de carga
+  var loaderStart = Date.now();
+  var MIN_DISPLAY = 3000; // 3 segundos por defecto para navegadores web
 
-      function hideLoader() {
-        var loader = document.getElementById('app-loader');
-        if (loader) {
-          loader.classList.add('fade-out');
-          setTimeout(function () { loader.remove(); }, 1250);
-        }
-      }
-      
-      setTimeout(hideLoader, MIN_DISPLAY);
+  // 🌟 TRUCO MAESTRO: Si la app se abre instalada en el móvil (standalone),
+  // como el celular ya lo hizo esperar en la pantalla azul nativa,
+  // reducimos nuestra intro a solo 800 milisegundos para evitar la "doble carga".
+  if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+    MIN_DISPLAY = 800; // Tiempo suficiente para que React monte en memoria sin que el usuario espere doble
+  }
 
-      // PWA Service Worker
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function () {
-          navigator.serviceWorker
-            .register('/service-worker.js')
-            .then(function (reg) { console.log('✅ PWA activa:', reg.scope); })
-            .catch(function (err) { console.warn('⚠️ SW no registrado:', err); });
-        });
-      }
-    </script>
+  function hideLoader() {
+    var loader = document.getElementById('app-loader');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(function () { loader.remove(); }, 1250);
+    }
+  }
+  
+  setTimeout(hideLoader, MIN_DISPLAY);
+
+  // PWA Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then(function (reg) { console.log('✅ PWA activa:', reg.scope); })
+        .catch(function (err) { console.warn('⚠️ SW no registrado:', err); });
+    });
+  }
+</script>
   </body>
 </html>
