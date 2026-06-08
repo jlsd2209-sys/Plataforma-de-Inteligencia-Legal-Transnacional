@@ -17,14 +17,21 @@
     <meta name="description" content="Servicios legales potenciados con Inteligencia Artificial para Argentina y Venezuela. Automatización legal de última generación." />
     <meta name="keywords" content="servicios legales IA, abogados inteligencia artificial, automatización legal Argentina, legal tech Venezuela," />
     <meta name="author" content="Plataforma de Inteligencia Legal Transnacional" />
+    
     <meta property="og:title" content="Plataforma de Inteligencia Legal Transnacional" />
     <meta property="og:description" content="Gestión legal automatizada mediante inteligencia artificial" />
     <meta property="og:type" content="website" />
     
-    <meta property="og:image" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png"/>
+    <meta property="og:url" content="https://unidadia-web.vercel.app/" />
+    <meta property="og:image" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png?v=1"/>
+    <meta property="og:image:secure_url" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png?v=1"/>
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@" />
-    <meta name="twitter:image" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png"/>
+    <meta name="twitter:image" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png?v=1"/>
 
     <style>
       body { margin: 0; background-color: #0a1526; overflow: hidden; }
@@ -60,7 +67,7 @@
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
-
+    
       @keyframes spin    { to { transform: rotate(360deg); } }
       @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
       #app-loader.fade-out { animation: fadeOut 1.2s ease forwards; }
@@ -87,8 +94,8 @@
           setTimeout(function () { loader.remove(); }, 1250);
         }
       }
-
-      // Se ejecuta de manera segura exactamente al cumplirse los 3 segundos
+      
+     // Se ejecuta de manera segura exactamente al cumplirse los 3 segundos
       setTimeout(hideLoader, MIN_DISPLAY);
 
       // PWA Service Worker
