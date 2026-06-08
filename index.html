@@ -2,14 +2,15 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <!-- ═══ PWA ════════════════════════════════════════════════════ -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#0a1526" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Unidad de IA" />
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-    <!-- ══════════════════════════════════════════════════════════ -->
+    
+    <link rel="preload" href="/Logo durante carga Movil.jpg" as="image" media="(max-width: 767px)" />
+    <link rel="preload" href="/Logo durante carga PC.jpeg" as="image" media="(min-width: 768px)" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="icon" type="image/jpeg" href="/logo.navegador.png" />
     <title>Plataforma Legal Transnacional</title>
@@ -75,13 +76,14 @@
     <script type="module" src="/src/main.tsx"></script>
 
     <script>
-      // Empieza a contar desde que el DOM está listo — no espera a que React cargue
+      // CAMBIO REALIZADO: Reemplazo del evento 'load' por un temporizador asíncrono estricto de 4.5 segundos para garantizar que se aprecien las imágenes en PC y Móvil.
       var loaderStart = Date.now();
-      var MIN_DISPLAY = 4500; // milisegundos mínimos que se muestra el loader
+      var MIN_DISPLAY = 4500; // 4.5 segundos garantizados para apreciar la imagen
 
       function hideLoader() {
         var elapsed = Date.now() - loaderStart;
         var remaining = Math.max(0, MIN_DISPLAY - elapsed);
+        
         setTimeout(function () {
           var loader = document.getElementById('app-loader');
           if (loader) {
@@ -91,8 +93,8 @@
         }, remaining);
       }
 
-      // Se dispara cuando React termina de montar la app
-      window.addEventListener('load', hideLoader);
+      // Se ejecuta el cálculo de salida inmediatamente al cumplir el tiempo de visualización objetivo
+      setTimeout(hideLoader, MIN_DISPLAY);
 
       // PWA Service Worker
       if ('serviceWorker' in navigator) {
