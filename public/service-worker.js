@@ -2,17 +2,20 @@
 //  service-worker.js — Unidad de IA PWA (Ultra Simplificado)
 // ============================================================
 
-const CACHE_NAME = 'unidad-ia-v3'; // Incrementamos versión por seguridad
+// Incrementamos a v4 para forzar a los dispositivos a limpiar 
+// la caché antigua y descargar los nuevos videos.
+const CACHE_NAME = 'unidad-ia-v4'; 
 
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
   '/logo.navegador.png',
-  '/Logo durante carga Movil.jpg',
-  '/Logo durante carga PC.jpeg',
+  '/Logo durante carga Movil.jpg', // Se mantiene SÓLO para la etiqueta apple-touch-startup-image de iOS
   '/icon-192x192.png',
-  '/icon-512x512.png'
+  '/icon-512x512.png',
+  '/loader-movil.mp4',             // NUEVO: Video optimizado para Móvil
+  '/loader-pc.mp4'                 // NUEVO: Video optimizado para PC
 ];
 
 // ── INSTALACIÓN ─────────────────────────────────────────────
@@ -43,6 +46,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
+  // Ignorar peticiones a la API externa para no guardarlas en caché estática
   if (url.hostname === 'unidaddeia.duckdns.org') {
     event.respondWith(fetch(event.request));
     return;
