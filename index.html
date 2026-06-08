@@ -20,10 +20,11 @@
     <meta property="og:title" content="Plataforma de Inteligencia Legal Transnacional" />
     <meta property="og:description" content="Gestión legal automatizada mediante inteligencia artificial" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://unidadia-web.vercel.app/Logo Open Graph.png"/>
+    
+    <meta property="og:image" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png"/>
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@" />
-    <meta name="twitter:image" content="https://unidadia-web.vercel.app/Logo Open Graph.png"/>
+    <meta name="twitter:image" content="https://unidadia-web.vercel.app/Logo%20Open%20Graph.png"/>
 
     <style>
       body { margin: 0; background-color: #0a1526; overflow: hidden; }
@@ -66,34 +67,28 @@
     </style>
   </head>
   <body>
-    <div id="root">
-      <div id="app-loader">
-        <img id="loader-img" alt="" />
-        <div id="loader-spinner"></div>
-      </div>
+    <div id="app-loader">
+      <img id="loader-img" alt="" />
+      <div id="loader-spinner"></div>
     </div>
+
+    <div id="root"></div>
 
     <script type="module" src="/src/main.tsx"></script>
 
     <script>
-      // CAMBIO REALIZADO: Reemplazo del evento 'load' por un temporizador asíncrono estricto de 4.5 segundos para garantizar que se aprecien las imágenes en PC y Móvil.
       var loaderStart = Date.now();
-      var MIN_DISPLAY = 4500; // 4.5 segundos garantizados para apreciar la imagen
+      var MIN_DISPLAY = 4500; // 4.5 segundos estrictos garantizados
 
       function hideLoader() {
-        var elapsed = Date.now() - loaderStart;
-        var remaining = Math.max(0, MIN_DISPLAY - elapsed);
-        
-        setTimeout(function () {
-          var loader = document.getElementById('app-loader');
-          if (loader) {
-            loader.classList.add('fade-out');
-            setTimeout(function () { loader.remove(); }, 1250);
-          }
-        }, remaining);
+        var loader = document.getElementById('app-loader');
+        if (loader) {
+          loader.classList.add('fade-out');
+          setTimeout(function () { loader.remove(); }, 1250);
+        }
       }
 
-      // Se ejecuta el cálculo de salida inmediatamente al cumplir el tiempo de visualización objetivo
+      // Se ejecuta de manera segura exactamente al cumplirse los 4.5 segundos
       setTimeout(hideLoader, MIN_DISPLAY);
 
       // PWA Service Worker
