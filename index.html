@@ -101,8 +101,8 @@
       // ==========================================
       
       // Ya no cortamos el tiempo si es standalone, porque queremos 
-      // que el usuario vea la animación completa de 3 segundos.
-      var DISPLAY_TIME = 3000; 
+      // que el usuario vea la animación completa de 3.20 segundos.
+      var DISPLAY_TIME = 3200; 
 
       function hideLoader() {
         var loader = document.getElementById('app-loader');
@@ -116,7 +116,7 @@
         }
       }
       
-      // Disparar la salida del loader tras los 4 segundos del video
+      // Disparar la salida del loader tras los 3.20 segundos del video
       setTimeout(hideLoader, DISPLAY_TIME);
 
       // Registro del Service Worker (PWA)
