@@ -44,7 +44,7 @@ export const Footer = () => {
               className="flex items-center gap-3 font-serif text-xl font-bold mb-1 group"
             >
               <div className="relative w-12 h-12 flex-shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                <img src={logoShield} alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(197,160,89,0.3)]" />
+                <img src={logoShield} alt="." className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(197,160,89,0.3)]" />
               </div>
               <div className="relative whitespace-normal lg:whitespace-nowrap">
                 <span className="absolute inset-0 gradient-text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
