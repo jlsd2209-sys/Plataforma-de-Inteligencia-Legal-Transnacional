@@ -251,7 +251,7 @@ export const FloatingButtons = () => {
                 onMouseLeave={() => setIsHeaderHovered(false)}
               >
                 <div className="relative w-10 h-11 flex-shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                  <img src={logoShield} alt="Agente" className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]" />
+                  <img src={logoShield} alt="." className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(197,160,89,0.5)]" />
                 </div>
                 <div>
                   <h3 className={`font-serif font-bold leading-tight text-[15px] transition-colors duration-300 ${isHeaderHovered ? 'gradient-text-gold text-[#c5a059]' : 'text-white'}`}>
