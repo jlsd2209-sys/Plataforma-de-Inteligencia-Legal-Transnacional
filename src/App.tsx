@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound";
 import Asistente from "./pages/Asistente";
 
 // 1. IMPORTAMOS EL CHATBOT (Basado en la foto de tus carpetas)
-import { FloatingButtons } from "./ui/FloatingButtons";
+import { FloatingButtons } from "@/ui/FloatingButtons";
 
 const queryClient = new QueryClient();
 
