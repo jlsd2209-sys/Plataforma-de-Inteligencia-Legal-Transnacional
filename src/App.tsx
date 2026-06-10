@@ -5,8 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-// 1. IMPORTAMOS TU NUEVA PÁGINA AQUÍ
 import Asistente from "./pages/Asistente";
+
+// 1. IMPORTAMOS EL CHATBOT (Basado en la foto de tus carpetas)
+import { FloatingButtons } from "./ui/FloatingButtons";
 
 const queryClient = new QueryClient();
 
@@ -18,13 +20,13 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          
-          {/* 2. REGISTRAMOS LA RUTA DEL ASISTENTE */}
           <Route path="/asistente" element={<Asistente />} />
-          
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        
+        {/* 2. COLOCAMOS EL CHATBOT AQUÍ PARA QUE SEA GLOBAL */}
+        <FloatingButtons />
+        
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
