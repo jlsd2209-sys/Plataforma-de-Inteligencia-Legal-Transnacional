@@ -30,7 +30,7 @@ export const MODULES_DB: ModuleConfig[] = [
     hook: 'webhook-memoria',
     icon: '🏛️',
     demoText:
-      'Este módulo exclusivo permite a nuestros clientes interactuar con el "Cerebro Histórico" de sus casos, encontrando precedentes exactos, respuestas estratégicas en tiempo real y estandarizando sus decisiones legales victoriosas en el pasado. Su historial legal es su mayor activo; contáctenos para digitalizar y blindar su memoria corporativa.',
+      'Este módulo exclusivo permite a nuestros clientes interactuar con el 'Cerebro Histórico' de sus casos, encontrando precedentes exactos, respuestas estratégicas en tiempo real y estandarizando sus decisiones legales victoriosas en el pasado. Su historial legal es su mayor activo; contáctenos para digitalizar y blindar su memoria corporativa.',
     loadingText: 'Analizando su consulta...',
   },
   {
@@ -46,7 +46,7 @@ export const MODULES_DB: ModuleConfig[] = [
     hook: 'webhook-boletin',
     icon: '📖',
     demoText:
-      'A diferencia de un boletín tradicional, este modelo monitorea gacetas oficiales y despachos legislativos 24/7, filtrando únicamente los cambios normativos que impactan directamente en el sector de cada cliente. No sufra sorpresas legales; contáctenos para configurar su radar personalizado.',
+      'A diferencia de un boletín tradicional, este modelo monitorea gacetas oficiales y despachos legislativos 24/7, filtrando únicamente los cambios normativos que impactan directamente en el sector de cada cliente. No sufra sorpresas legales; contáctenos para configurar su radar personalizado',
     loadingText: 'Analizando su consulta...',
   },
 ];
