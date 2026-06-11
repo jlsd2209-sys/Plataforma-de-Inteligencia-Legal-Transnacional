@@ -228,11 +228,11 @@ export default function AsistentePage() {
                 className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(197,160,89,0.4)]"
               />
             </div>
-            <h1 className="text-xl font-serif tracking-wide transition-colors duration-300 ${isLoginHovered ? 'gradient-text-gold' : 'text-white">
+            <h1 className="text-white text-2xl font-light tracking-widest uppercase text-center">
               Plataforma Legal Transnacional
             </h1>
             <p className="text-[#c5a059] text-xs tracking-widest uppercase mt-1">
-              Unidad de Inteligencia Artificial
+              Centro de Inteligencia Legal
             </p>
           </div>
 
