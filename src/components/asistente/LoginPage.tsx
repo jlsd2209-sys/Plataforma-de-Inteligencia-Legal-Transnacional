@@ -343,7 +343,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                 ¿Ya tienes una cuenta?{' '}
                 <button
                   onClick={() => setIsRegistering(false)}
-                  className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-4 rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95 mt-2"
+                  className="text-[#c5a059] hover:text-white transition-colors font-medium"
                 >
                   Inicia sesión
                 </button>
