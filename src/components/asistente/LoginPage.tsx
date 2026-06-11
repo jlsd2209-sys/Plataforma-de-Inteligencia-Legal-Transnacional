@@ -2,6 +2,8 @@ import { useState } from 'react';
 import logoShield from '@/assets/logo.png.png';
 import { Particles } from '@/components/Particles';
 import { Lock, Eye, EyeOff } from 'lucide-react';
+// Importamos el componente de los botones flotantes
+import { FloatingButtons } from '@/components/FloatingButtons';
 
 // ==========================================
 // TIPOS
@@ -317,6 +319,9 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           </>
         )}
       </div>
+
+      {/* Aquí colocamos el Chatbot para que flote sobre el login */}
+      <FloatingButtons />
     </div>
   );
 }
