@@ -193,7 +193,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           transition={{ duration: 0.4 }}
           className="flex flex-col items-center justify-center text-center pt-8 px-8"
         >
-          <div className="relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center">
+          <div className="relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center transition-transform duration-300 hover:scale-110">
             <img
               src={logoShield}
               alt="Logo"
@@ -201,7 +201,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             />
           </div>
           <h1
-            className={`text-2xl font-serif tracking-wide transition-colors duration-300 ${
+            className={`text-xl font-serif tracking-widest uppercase transition-colors duration-300 ${
               isLoginHovered ? 'gradient-text-gold' : 'text-white'
             }`}
           >
@@ -299,9 +299,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           {isRegistering && (
             <>
               <form onSubmit={handleRegister} className="space-y-4">
-                <h2 className="text-white text-base font-light text-center uppercase tracking-widest mb-2">
-                  Nuevo Registro
-                </h2>
                 <input
                   type="text"
                   placeholder="Nombre completo"
@@ -338,7 +335,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   type="submit"
                   className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
                 >
-                  Enviar solicitud
+                  Solicitar acceso
                 </button>
               </form>
 
@@ -369,9 +366,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           {isRecovering && (
             <>
               <form onSubmit={handleRecoverPassword} className="space-y-4">
-                <h2 className="text-white text-base font-light text-center uppercase tracking-widest mb-2">
-                  Recuperar Acceso
-                </h2>
                 <input
                   type="email"
                   placeholder="Correo electrónico registrado"
@@ -384,7 +378,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   type="submit"
                   className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
                 >
-                  Enviar instrucciones
+                  Recuperar acceso
                 </button>
               </form>
 
