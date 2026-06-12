@@ -809,7 +809,7 @@ export default function AsistentePage() {
                   ¿Cerrar Sesión Segura?
                 </h3>
                 <p className="text-gray-400 text-sm mt-2 leading-relaxed">
-                  ¿Está seguro de que desea salir del asistente? Tendrá que autenticarte de nuevo para recuperar el acceso a los entornos corporativos.
+                  ¿Está seguro de que desea salir de la sesión actual y abandonar el Modo Demo?
                 </p>
               </motion.div>
 
@@ -858,7 +858,7 @@ export default function AsistentePage() {
                   ¿Eliminar Historial?
                 </h3>
                 <p className="text-gray-400 text-sm mt-2 leading-relaxed">
-                  ¿Seguro que desea purgar y borrar todo el historial de conversaciones de <strong>{moduloActivo}</strong>? Esta operación es inmediata y no se puede deshacer.
+                  ¿Está seguro de que desea eliminar el historial de <strong>{moduloActivo}</strong>? Esta operación es inmediata y no se puede deshacer.
                 </p>
               </motion.div>
 
