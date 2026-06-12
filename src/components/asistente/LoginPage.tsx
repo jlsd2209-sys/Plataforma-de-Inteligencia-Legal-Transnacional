@@ -342,10 +342,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <p className="text-gray-400 text-sm">
                 ¿Ya tienes una cuenta?{' '}
                 <button
-                  onClick={() => setIsRegistering(false)}
+                  onClick={() => setIsRegistering(true)}
                   className="text-[#c5a059] hover:text-white transition-colors font-medium"
                 >
-                  Solicita tu acceso
+                  Inicia sesión
                 </button>
               </p>
               <button
@@ -387,7 +387,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <p className="text-gray-400 text-sm">
                 ¿Recordó su contraseña?{' '}
                 <button
-                  onClick={() => setIsRecovering(false)}
+                  onClick={() => setIsRegistering(true)}
                   className="text-[#c5a059] hover:text-white transition-colors font-medium"
                 >
                   Inicia sesión
