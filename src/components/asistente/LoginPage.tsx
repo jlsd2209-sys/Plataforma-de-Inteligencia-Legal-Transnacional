@@ -345,9 +345,15 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   onClick={() => setIsRegistering(false)}
                   className="text-[#c5a059] hover:text-white transition-colors font-medium"
                 >
-                  Inicia sesión
+                  Solicita tu acceso
                 </button>
               </p>
+              <button
+                onClick={() => onLogin('guest')}
+                className="text-[#c5a059] hover:text-white text-sm font-medium transition-colors border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10"
+              >
+                Entrar a la versión Demo (Invitado)
+              </button>
             </div>
           </>
         )}
@@ -387,6 +393,12 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   Inicia sesión
                 </button>
               </p>
+              <button
+                onClick={() => onLogin('guest')}
+                className="text-[#c5a059] hover:text-white text-sm font-medium transition-colors border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10"
+              >
+                Entrar a la versión Demo (Invitado)
+              </button>
             </div>
           </>
         )}
