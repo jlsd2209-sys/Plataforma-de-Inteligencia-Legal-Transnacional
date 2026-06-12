@@ -11,120 +11,6 @@ interface LoginPageProps {
   onLogin: (mode: AccessMode, username?: string) => void;
 }
 
-// ── Componente interno para links con efecto dorado → blanco ──
-const GoldLink = ({
-  onClick,
-  children,
-  className = '',
-}: {
-  onClick?: () => void;
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  const goldStyle = {
-    background: 'linear-gradient(135deg, hsl(40, 38%, 94%) 0%, hsl(41, 46%, 56%) 100%)',
-    WebkitBackgroundClip: 'text' as const,
-    WebkitTextFillColor: 'transparent' as const,
-    backgroundClip: 'text' as const,
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`font-medium cursor-pointer transition-all duration-300 ${className}`}
-      style={goldStyle}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.background = 'none';
-        el.style.WebkitBackgroundClip = 'unset';
-        el.style.WebkitTextFillColor = 'white';
-        el.style.backgroundClip = 'unset';
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.background = 'linear-gradient(135deg, hsl(40, 38%, 94%) 0%, hsl(41, 46%, 56%) 100%)';
-        el.style.WebkitBackgroundClip = 'text';
-        el.style.WebkitTextFillColor = 'transparent';
-        el.style.backgroundClip = 'text';
-      }}
-    >
-      {children}
-    </button>
-  );
-};
-
-// ── Componente interno para el botón Demo con borde ──
-const GoldDemoButton = ({ onClick }: { onClick?: () => void }) => {
-  const goldStyle = {
-    background: 'linear-gradient(135deg, hsl(40, 38%, 94%) 0%, hsl(41, 46%, 56%) 100%)',
-    WebkitBackgroundClip: 'text' as const,
-    WebkitTextFillColor: 'transparent' as const,
-    backgroundClip: 'text' as const,
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="text-sm font-medium cursor-pointer transition-all duration-300 border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10"
-      style={goldStyle}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.background = 'none';
-        el.style.WebkitBackgroundClip = 'unset';
-        el.style.WebkitTextFillColor = 'white';
-        el.style.backgroundClip = 'unset';
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.background = 'linear-gradient(135deg, hsl(40, 38%, 94%) 0%, hsl(41, 46%, 56%) 100%)';
-        el.style.WebkitBackgroundClip = 'text';
-        el.style.WebkitTextFillColor = 'transparent';
-        el.style.backgroundClip = 'text';
-      }}
-    >
-      Entrar a la versión Demo (Invitado)
-    </button>
-  );
-};
-
-// ── Componente interno para el subtítulo con efecto dorado → blanco ──
-const GoldSubtitle = ({ children }: { children: React.ReactNode }) => {
-  const goldStyle = {
-    background: 'linear-gradient(135deg, hsl(40, 38%, 94%) 0%, hsl(41, 46%, 56%) 100%)',
-    WebkitBackgroundClip: 'text' as const,
-    WebkitTextFillColor: 'transparent' as const,
-    backgroundClip: 'text' as const,
-  };
-
-  return (
-    <p
-      className="text-xs uppercase tracking-widest mt-1 transition-all duration-300 cursor-default"
-      style={goldStyle}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.background = 'none';
-        el.style.WebkitBackgroundClip = 'unset';
-        el.style.WebkitTextFillColor = 'white';
-        el.style.backgroundClip = 'unset';
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.background = 'linear-gradient(135deg, hsl(40, 38%, 94%) 0%, hsl(41, 46%, 56%) 100%)';
-        el.style.WebkitBackgroundClip = 'text';
-        el.style.WebkitTextFillColor = 'transparent';
-        el.style.backgroundClip = 'text';
-      }}
-    >
-      {children}
-    </p>
-  );
-};
-
-// ==========================================
-// COMPONENTE PRINCIPAL
-// ==========================================
 export default function LoginPage({ onLogin }: LoginPageProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -136,6 +22,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const [registerPhone, setRegisterPhone] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoginHovered, setIsLoginHovered] = useState(false);
   const [isNotificationHovered, setIsNotificationHovered] = useState(false);
   const [logoScale, setLogoScale] = useState(false);
 
@@ -210,9 +97,12 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     }
   };
 
-  const inputClass = "w-full bg-[#0a1526] border border-gray-700 text-white placeholder-gray-500 rounded-xl py-3 px-4 focus:outline-none focus:border-[#c5a059] transition-colors text-sm";
+  // Fondo original de los inputs: bg-[#1e2330]/80
+  const inputClass = "w-full bg-[#1e2330]/80 text-white placeholder-gray-500 border border-gray-700 rounded-xl p-4 focus:border-[#c5a059] focus:ring-1 focus:ring-[#c5a059] outline-none transition-all text-sm";
   const submitBtnClass = "w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95";
   const footerClass = "mt-4 pt-4 border-t border-gray-800 text-center space-y-3";
+  // Efecto original: dorado sólido → blanco al hover, sin degradado
+  const goldLink = "text-[#c5a059] hover:text-white transition-colors duration-300 font-medium";
 
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center bg-[#0a1526] font-sans overflow-hidden">
@@ -266,7 +156,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         >
           {/* Logo — escala SOLO cuando el cursor está encima de él */}
           <div
-            className={`relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center transition-transform duration-300 ${logoScale ? 'scale-110' : 'scale-100'}`}
+            className={`relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center transition-transform duration-300 cursor-pointer ${logoScale ? 'scale-110' : 'scale-100'}`}
             onMouseEnter={() => setLogoScale(true)}
             onMouseLeave={() => setLogoScale(false)}
           >
@@ -282,8 +172,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             Plataforma Legal Transnacional
           </h1>
 
-          {/* Subtítulo — dorado degradado → blanco al hover */}
-          <GoldSubtitle>Centro de Inteligencia Legal</GoldSubtitle>
+          {/* Subtítulo — dorado sólido → blanco al hover */}
+          <p className={`${goldLink} text-xs uppercase tracking-widest mt-1`}>
+            Centro de Inteligencia Legal
+          </p>
         </motion.div>
 
         {/* ── Cuerpo ── */}
@@ -300,7 +192,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                     placeholder="Correo electrónico"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className={`${inputClass} pl-11 pr-4`}
+                    className={`${inputClass} pl-11`}
                   />
                 </div>
                 <div className="relative">
@@ -345,13 +237,19 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <div className={footerClass}>
                 <p className="text-gray-400 text-sm">
                   ¿No eres cliente aún?{' '}
-                  <GoldLink
+                  <button
                     onClick={() => { setIsRegistering(true); setIsRecovering(false); setLoginError(false); }}
+                    className={goldLink}
                   >
                     Solicita tu acceso
-                  </GoldLink>
+                  </button>
                 </p>
-                <GoldDemoButton onClick={() => onLogin('guest')} />
+                <button
+                  onClick={() => onLogin('guest')}
+                  className={`${goldLink} text-sm border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10`}
+                >
+                  Entrar a la versión Demo (Invitado)
+                </button>
               </div>
             </>
           )}
@@ -372,11 +270,19 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <div className={footerClass}>
                 <p className="text-gray-400 text-sm">
                   ¿Ya tienes una cuenta?{' '}
-                  <GoldLink onClick={() => { setIsRegistering(false); setIsRecovering(false); }}>
+                  <button
+                    onClick={() => { setIsRegistering(false); setIsRecovering(false); }}
+                    className={goldLink}
+                  >
                     Inicia sesión
-                  </GoldLink>
+                  </button>
                 </p>
-                <GoldDemoButton onClick={() => onLogin('guest')} />
+                <button
+                  onClick={() => onLogin('guest')}
+                  className={`${goldLink} text-sm border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10`}
+                >
+                  Entrar a la versión Demo (Invitado)
+                </button>
               </div>
             </>
           )}
@@ -394,11 +300,19 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <div className={footerClass}>
                 <p className="text-gray-400 text-sm">
                   ¿Recordó su contraseña?{' '}
-                  <GoldLink onClick={() => { setIsRecovering(false); setIsRegistering(false); }}>
+                  <button
+                    onClick={() => { setIsRecovering(false); setIsRegistering(false); }}
+                    className={goldLink}
+                  >
                     Inicia sesión
-                  </GoldLink>
+                  </button>
                 </p>
-                <GoldDemoButton onClick={() => onLogin('guest')} />
+                <button
+                  onClick={() => onLogin('guest')}
+                  className={`${goldLink} text-sm border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10`}
+                >
+                  Entrar a la versión Demo (Invitado)
+                </button>
               </div>
             </>
           )}
