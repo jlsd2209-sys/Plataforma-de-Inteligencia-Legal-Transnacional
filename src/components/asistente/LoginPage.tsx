@@ -152,7 +152,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-          className="flex flex-col items-center justify-center text-center pt-8 px-8"
+          className="flex flex-col items-center justify-center text-center pt-8 px-10"
         >
           {/* Logo — escala SOLO cuando el cursor está encima de él */}
           <div
@@ -179,7 +179,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         </motion.div>
 
         {/* ── Cuerpo ── */}
-        <div className="px-8 pb-6 pt-6">
+        <div className="px-10 pb-6 pt-6">
 
           {/* ── LOGIN ── */}
           {!isRegistering && !isRecovering && (
