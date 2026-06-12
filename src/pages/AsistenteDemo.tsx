@@ -79,6 +79,16 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
   const [isDesktopSidebarCollapsed, setIsDesktopSidebarCollapsed] = useState(false);
   const [isLogoHovered, setIsLogoHovered] = useState(false);
 
+  // ── FIX MOBILE VIEWPORT: calcula altura real excluyendo teclado virtual ──
+  useEffect(() => {
+    const setVh = () => {
+      document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+    };
+    setVh();
+    window.addEventListener('resize', setVh);
+    return () => window.removeEventListener('resize', setVh);
+  }, []);
+
   const storageKey = `lap_history_guest`;
   const [chatsHistory, setChatsHistory] = useState<Record<string, Message[]>>(() => { try { const saved = localStorage.getItem(storageKey); return saved ? JSON.parse(saved) : {}; } catch { return {}; } });
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -128,12 +138,21 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
   };
 
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  const palettes = { dark: { appBG: 'bg-[#151f32]', sidebarOverlay: 'bg-[#0a1526]/85 backdrop-blur-[2px]', sidebarBtnText: 'text-gray-200', sidebarBtnHover: 'hover:bg-[#111827]', sidebarBtnActive: 'bg-[#1f2937] border-[#c5a059]', mainHeaderBG: 'bg-[#151f32]/90', mainHeaderBorder: 'border-[#1e2a40]', mainTitle: 'text-gray-100', greetingP: 'text-gray-300', botBubble: 'bg-[#1e2a40] text-gray-200 border-[#c5a059]', userBubble: 'bg-[#2a303c] text-gray-100 border-gray-700', footerBG: 'bg-[#1e2a40]', textArea: 'text-gray-100', sendBtn: 'bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/30 hover:bg-[#c5a059]/20', scrollBtn: 'bg-[#151f32] text-[#c5a059] border border-[#c5a059]/50 hover:bg-[#1e2a40] shadow-xl' }, light: { appBG: 'bg-[#fdfcf5]', sidebarOverlay: 'bg-[#0a1526]/95', sidebarBtnText: 'text-gray-200', sidebarBtnHover: 'hover:bg-[#111827]', sidebarBtnActive: 'bg-[#1f2937] border-[#c5a059]', mainHeaderBG: 'bg-[#fdfcf5]/80', mainHeaderBorder: 'border-[#c5a059]/30', mainTitle: 'text-[#0a1526]', greetingP: 'text-[#2a303c]', botBubble: 'bg-[#eee7d5] text-[#2a303c] border-[#c5a059]', userBubble: 'bg-[#151f32] text-white border-none', footerBG: 'bg-[#eee7d5]', textArea: 'text-[#2a303c]', sendBtn: 'bg-[#0a1526] text-[#c5a059] border border-[#0a1526] hover:bg-[#111827]', scrollBtn: 'bg-[#0a1526] text-[#c5a059] border border-[#0a1526] hover:bg-[#111827] shadow-lg' } };
+  const palettes = {
+    dark: { appBG: 'bg-[#151f32]', sidebarOverlay: 'bg-[#0a1526]/85 backdrop-blur-[2px]', sidebarBtnText: 'text-gray-200', sidebarBtnHover: 'hover:bg-[#111827]', sidebarBtnActive: 'bg-[#1f2937] border-[#c5a059]', mainHeaderBG: 'bg-[#151f32]/90', mainHeaderBorder: 'border-[#1e2a40]', mainTitle: 'text-gray-100', greetingP: 'text-gray-300', botBubble: 'bg-[#1e2a40] text-gray-200 border-[#c5a059]', userBubble: 'bg-[#2a303c] text-gray-100 border-gray-700', footerBG: 'bg-[#1e2a40]', textArea: 'text-gray-100', sendBtn: 'bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/30 hover:bg-[#c5a059]/20', scrollBtn: 'bg-[#151f32] text-[#c5a059] border border-[#c5a059]/50 hover:bg-[#1e2a40] shadow-xl' },
+    light: { appBG: 'bg-[#fdfcf5]', sidebarOverlay: 'bg-[#0a1526]/95', sidebarBtnText: 'text-gray-200', sidebarBtnHover: 'hover:bg-[#111827]', sidebarBtnActive: 'bg-[#1f2937] border-[#c5a059]', mainHeaderBG: 'bg-[#fdfcf5]/80', mainHeaderBorder: 'border-[#c5a059]/30', mainTitle: 'text-[#0a1526]', greetingP: 'text-[#2a303c]', botBubble: 'bg-[#eee7d5] text-[#2a303c] border-[#c5a059]', userBubble: 'bg-[#151f32] text-white border-none', footerBG: 'bg-[#eee7d5]', textArea: 'text-[#2a303c]', sendBtn: 'bg-[#0a1526] text-[#c5a059] border border-[#0a1526] hover:bg-[#111827]', scrollBtn: 'bg-[#0a1526] text-[#c5a059] border border-[#0a1526] hover:bg-[#111827] shadow-lg' }
+  };
   const currentColors = palettes[theme];
 
   return (
-    <div className={`fixed inset-0 flex w-screen overflow-hidden overscroll-none ${currentColors.appBG} font-sans transition-colors duration-300`}>
+    // ── CAMBIO CLAVE 1: usar var(--app-height) en lugar de h-screen/100vh ──
+    <div
+      className={`flex w-screen overflow-hidden overscroll-none ${currentColors.appBG} font-sans transition-colors duration-300`}
+      style={{ height: 'var(--app-height, 100dvh)', position: 'fixed', inset: 0 }}
+    >
       {isMobileMenuOpen && <div className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm transition-opacity" onClick={() => setIsMobileMenuOpen(false)} />}
+
+      {/* SIDEBAR */}
       <aside className={`fixed md:relative top-0 left-0 z-50 h-full flex flex-col border-r border-gray-800 overflow-x-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0 w-[260px]' : '-translate-x-full md:translate-x-0'} ${isDesktopSidebarCollapsed ? 'md:w-[80px]' : 'md:w-[260px]'}`}>
         <button className="absolute top-4 right-4 z-50 md:hidden text-gray-400 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}><X size={24} /></button>
         <div className="absolute inset-0 z-0 overflow-hidden"><img src="/fondo-servicios.jpg.png" alt="" className="w-full h-full object-cover" /><div className={`absolute inset-0 ${currentColors.sidebarOverlay} transition-colors duration-300`}></div></div>
@@ -155,7 +174,7 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
           ))}
         </nav>
         <div className={`border-t border-gray-800 relative z-10 flex transition-all duration-300 ${isDesktopSidebarCollapsed ? 'p-4 flex-col items-center gap-4' : 'p-4 flex-row items-center justify-between'}`}>
-          <div className="flex items-center gap-3 overflow-hidden" title={isDesktopSidebarCollapsed ? 'Invitado' : undefined}>
+          <div className="flex items-center gap-3 overflow-hidden">
             <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#c5a059]/20 to-[#c5a059]/10 border border-[#c5a059]/30 text-[#c5a059] flex items-center justify-center flex-shrink-0 font-bold shadow-lg">G</div>
             <div className={`flex flex-col truncate transition-opacity duration-300 ${isDesktopSidebarCollapsed ? 'hidden' : 'block'}`}>
               <span className="text-[15px] md:text-[16px] font-medium text-gray-200 truncate">Invitado</span>
@@ -166,8 +185,11 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col relative w-full h-full min-w-0 min-h-0 overflow-hidden overscroll-none transition-all duration-300">
-        <header className={`w-full flex-shrink-0 min-h-[4rem] border-b ${currentColors.mainHeaderBorder} flex items-center justify-between px-4 md:px-6 ${currentColors.mainHeaderBG} backdrop-blur-md z-30 transition-colors duration-300`}>
+      {/* ── MAIN: columna flex que ocupa el espacio restante ── */}
+      <main className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden transition-all duration-300">
+
+        {/* ── CAMBIO CLAVE 2: header con flex-shrink-0 garantiza que nunca se encoja ── */}
+        <header className={`flex-shrink-0 w-full min-h-[4rem] border-b ${currentColors.mainHeaderBorder} flex items-center justify-between px-4 md:px-6 ${currentColors.mainHeaderBG} backdrop-blur-md z-30 transition-colors duration-300`}>
           <div className="flex items-center gap-3 md:gap-4 w-full">
             <button className={`md:hidden p-2 -ml-2 rounded-full transition-all flex-shrink-0 ${theme === 'dark' ? 'text-gray-300 hover:bg-[#1e2a40]' : 'text-gray-600 hover:bg-gray-200'}`} onClick={() => setIsMobileMenuOpen(true)}><Menu size={22} /></button>
             <div className="flex flex-col items-start gap-1 md:flex-row md:items-center md:gap-3 flex-1">
@@ -187,7 +209,12 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
           </div>
         </header>
 
-        <section className={`flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-none px-4 md:px-12 py-4 md:py-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative ${currentColors.textArea}`} ref={scrollAreaRef} onScroll={handleChatScroll}>
+        {/* ── CAMBIO CLAVE 3: section con overflow-y-auto y min-h-0 para scroll interno ── */}
+        <section
+          className={`flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-contain px-4 md:px-12 py-4 md:py-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative ${currentColors.textArea}`}
+          ref={scrollAreaRef}
+          onScroll={handleChatScroll}
+        >
           <div className="flex flex-col space-y-6 w-full max-w-3xl mx-auto flex-shrink-0">
             {currentMessages.length === 0 && (
               <div className="flex gap-4 items-start mb-4">
@@ -213,7 +240,8 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
               </div>
             ))}
           </div>
-          <div className="flex-1 min-h-[1px]"></div><div ref={messagesEndRef} />
+          <div className="flex-1 min-h-[1px]"></div>
+          <div ref={messagesEndRef} />
           <AnimatePresence>
             {showScrollBottom && (<motion.button initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.5 }} onClick={scrollToBottomChat} className={`fixed bottom-28 md:bottom-32 right-6 md:right-12 z-50 w-10 h-10 rounded-full flex items-center justify-center transition-all ${currentColors.scrollBtn}`}><ArrowDown size={20} /></motion.button>)}
           </AnimatePresence>
@@ -223,6 +251,7 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
           <div className="fixed bottom-28 left-1/2 -translate-x-1/2 z-[100] bg-[#0a1526] text-[#c5a059] border border-[#c5a059]/30 px-6 py-3 rounded-full shadow-[0_0_20px_rgba(197,160,89,0.2)] flex items-center gap-3 text-[14px] font-medium animate-in fade-in zoom-in-95 duration-300 text-center whitespace-nowrap max-w-[90vw] overflow-hidden text-ellipsis"><Check size={16} className="flex-shrink-0" /><span className="truncate">{toastMsg}</span></div>
         )}
 
+        {/* ── CAMBIO CLAVE 4: footer con flex-shrink-0 para que nunca desaparezca ── */}
         <footer className="flex-shrink-0 w-full px-4 py-2 sm:p-4 pb-4 md:pb-8 bg-transparent relative z-20">
           <div className="max-w-3xl mx-auto relative group">
             <div className={`${currentColors.footerBG} rounded-[24px] md:rounded-3xl border border-gray-700 p-1.5 flex flex-row items-end gap-1 focus-within:border-[#c5a059] transition-all shadow-2xl duration-300 min-h-[50px]`}>
