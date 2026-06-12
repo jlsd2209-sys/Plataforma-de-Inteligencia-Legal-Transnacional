@@ -189,7 +189,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Correo electrónico"
+                    placeholder="Usuario"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className={`${inputClass} pl-11`}
@@ -260,7 +260,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <form onSubmit={handleRegister} className="space-y-4">
                 <input type="text" placeholder="Nombre completo" value={registerName} onChange={(e) => setRegisterName(e.target.value)} required className={inputClass} />
                 <input type="email" placeholder="Correo electrónico" value={username} onChange={(e) => setUsername(e.target.value)} required className={inputClass} />
-                <input type="tel" placeholder="Teléfono (Ej: +54 9 11...)" value={registerPhone} onChange={(e) => setRegisterPhone(e.target.value)} required className={inputClass} />
+                <input type="tel" placeholder="Teléfono" value={registerPhone} onChange={(e) => setRegisterPhone(e.target.value)} required className={inputClass} />
                 <input type="password" placeholder="Contraseña deseada" value={password} onChange={(e) => setPassword(e.target.value)} required className={inputClass} />
                 <button type="submit" className={submitBtnClass}>
                   Solicitar Acceso
