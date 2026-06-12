@@ -171,9 +171,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           <h1 className="text-xl font-serif tracking-widest uppercase text-white">
             Plataforma Legal Transnacional
           </h1>
-
-        </motion.div>
-
+          
         {/* ── Cuerpo ── */}
         <div className="px-10 pb-6 pt-6">
 
