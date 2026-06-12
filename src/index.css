@@ -74,16 +74,24 @@
     @apply border-border/20;
   }
 
-  html {
-    scroll-behavior: smooth;
-    overflow-x: hidden;
+  /* CANDADO ABSOLUTO PARA PANTALLAS MÓVILES */
+  html, body, #root {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100% !important;
+    height: 100% !important;
+    height: 100dvh !important; /* Altura dinámica real del celular */
+    overflow: hidden !important; /* Prohíbe el desplazamiento de la pantalla completa */
+    overscroll-behavior: none !important; /* Elimina rebotes extraños */
   }
 
   body {
     @apply bg-background text-foreground font-sans;
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
-    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
