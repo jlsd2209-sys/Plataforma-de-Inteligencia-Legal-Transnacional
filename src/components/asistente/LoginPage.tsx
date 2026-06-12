@@ -181,7 +181,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             <>
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="relative">
-                  <User size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                   <input
                     type="text"
                     placeholder="Usuario"
@@ -191,7 +191,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   />
                 </div>
                 <div className="relative">
-                  <Lock size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Contraseña"
