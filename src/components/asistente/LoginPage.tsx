@@ -22,14 +22,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const [registerPhone, setRegisterPhone] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoginHovered, setIsLoginHovered] = useState(false);
   const [isNotificationHovered, setIsNotificationHovered] = useState(false);
   const [logoScale, setLogoScale] = useState(false);
 
   const [notification, setNotification] = useState<{ title: string; message: string; isError?: boolean } | null>(null);
-
-  const logo = () => setLogoScale(true);
-  const noLogo = () => setLogoScale(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -100,12 +96,13 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     }
   };
 
-  // Clases reutilizables
   const inputClass = "w-full bg-[#0a1526] border border-gray-700 text-white placeholder-gray-500 rounded-xl py-3 px-4 focus:outline-none focus:border-[#c5a059] transition-colors text-sm";
   const submitBtnClass = "w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95";
   const footerClass = "mt-4 pt-4 border-t border-gray-800 text-center space-y-3";
-  // Efecto dorado hover para links secundarios
-  const goldHoverClass = "transition-colors duration-300 font-medium";
+
+  // Clase para links secundarios: dorado degradado en reposo → blanco al hover
+  // gradient-text-gold aplica background-clip:text con el degradado dorado
+  const goldToWhiteLink = "gradient-text-gold hover:text-white transition-colors duration-300 font-medium cursor-pointer";
 
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center bg-[#0a1526] font-sans overflow-hidden">
@@ -150,18 +147,19 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
       </AnimatePresence>
 
       {/* ── TARJETA ÚNICA ── */}
-      <div
-        className="relative z-10 w-full max-w-md mx-4 bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] transition-all duration-500 overflow-hidden"
-        onMouseEnter={() => setIsLoginHovered(true)}
-        onMouseLeave={() => setIsLoginHovered(false)}
-      >
+      <div className="relative z-10 w-full max-w-md mx-4 bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] transition-all duration-500 overflow-hidden">
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
           className="flex flex-col items-center justify-center text-center pt-8 px-8"
         >
-          {/* Logo — escala con logoScale */}
-          <div className={`relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center transition-transform duration-300 ${logoScale ? 'scale-110' : 'scale-100'}`}>
+          {/* Logo — escala SOLO cuando el cursor está encima de él */}
+          <div
+            className={`relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center transition-transform duration-300 ${logoScale ? 'scale-110' : 'scale-100'}`}
+            onMouseEnter={() => setLogoScale(true)}
+            onMouseLeave={() => setLogoScale(false)}
+          >
             <img
               src={logoShield}
               alt="Logo"
@@ -169,19 +167,13 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             />
           </div>
 
-          {/* Título — siempre blanco, mayúsculas */}
-          <h1
-            className="text-xl font-serif tracking-widest uppercase text-white"
-            onMouseEnter={logo} onMouseLeave={noLogo}
-          >
+          {/* Título — blanco fijo, mayúsculas */}
+          <h1 className="text-xl font-serif tracking-widest uppercase text-white">
             Plataforma Legal Transnacional
           </h1>
 
-          {/* Subtítulo con efecto dorado hover */}
-          <p
-            className={`text-xs uppercase tracking-widest mt-1 transition-colors duration-300 ${isLoginHovered ? 'text-white' : 'text-[#c5a059]'}`}
-            onMouseEnter={logo} onMouseLeave={noLogo}
-          >
+          {/* Subtítulo — dorado degradado → blanco al hover */}
+          <p className={`${goldToWhiteLink} text-xs uppercase tracking-widest mt-1`}>
             Centro de Inteligencia Legal
           </p>
         </motion.div>
@@ -200,7 +192,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                     placeholder="Correo electrónico"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    onMouseEnter={logo} onMouseLeave={noLogo}
                     className={`${inputClass} pl-11 pr-4`}
                   />
                 </div>
@@ -211,7 +202,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                     placeholder="Contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    onMouseEnter={logo} onMouseLeave={noLogo}
                     className={`${inputClass} pl-11 pr-11`}
                   />
                   <button
@@ -233,18 +223,13 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   <button
                     type="button"
                     onClick={() => setIsRecovering(true)}
-                    onMouseEnter={logo} onMouseLeave={noLogo}
                     className="text-xs text-gray-400 hover:text-[#c5a059] transition-colors"
                   >
                     ¿Olvidó su contraseña?
                   </button>
                 </div>
 
-                <button
-                  type="submit"
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  className={submitBtnClass}
-                >
+                <button type="submit" className={submitBtnClass}>
                   Ingresar a la red
                 </button>
               </form>
@@ -254,16 +239,14 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   ¿No eres cliente aún?{' '}
                   <button
                     onClick={() => { setIsRegistering(true); setIsRecovering(false); setLoginError(false); }}
-                    onMouseEnter={logo} onMouseLeave={noLogo}
-                    className={`${goldHoverClass} ${isLoginHovered ? 'text-white' : 'text-[#c5a059]'} hover:text-white`}
+                    className={goldToWhiteLink}
                   >
                     Solicita tu acceso
                   </button>
                 </p>
                 <button
                   onClick={() => onLogin('guest')}
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  className={`text-sm font-medium transition-colors duration-300 border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10 ${isLoginHovered ? 'text-white' : 'text-[#c5a059]'} hover:text-white`}
+                  className={`${goldToWhiteLink} text-sm border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10`}
                 >
                   Entrar a la versión Demo (Invitado)
                 </button>
@@ -275,47 +258,11 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           {isRegistering && (
             <>
               <form onSubmit={handleRegister} className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Nombre completo"
-                  value={registerName}
-                  onChange={(e) => setRegisterName(e.target.value)}
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  required
-                  className={inputClass}
-                />
-                <input
-                  type="email"
-                  placeholder="Correo electrónico"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  required
-                  className={inputClass}
-                />
-                <input
-                  type="tel"
-                  placeholder="Teléfono (Ej: +54 9 11...)"
-                  value={registerPhone}
-                  onChange={(e) => setRegisterPhone(e.target.value)}
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  required
-                  className={inputClass}
-                />
-                <input
-                  type="password"
-                  placeholder="Contraseña deseada"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  required
-                  className={inputClass}
-                />
-                <button
-                  type="submit"
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  className={submitBtnClass}
-                >
+                <input type="text" placeholder="Nombre completo" value={registerName} onChange={(e) => setRegisterName(e.target.value)} required className={inputClass} />
+                <input type="email" placeholder="Correo electrónico" value={username} onChange={(e) => setUsername(e.target.value)} required className={inputClass} />
+                <input type="tel" placeholder="Teléfono (Ej: +54 9 11...)" value={registerPhone} onChange={(e) => setRegisterPhone(e.target.value)} required className={inputClass} />
+                <input type="password" placeholder="Contraseña deseada" value={password} onChange={(e) => setPassword(e.target.value)} required className={inputClass} />
+                <button type="submit" className={submitBtnClass}>
                   Solicitar Acceso
                 </button>
               </form>
@@ -325,16 +272,14 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   ¿Ya tienes una cuenta?{' '}
                   <button
                     onClick={() => { setIsRegistering(false); setIsRecovering(false); }}
-                    onMouseEnter={logo} onMouseLeave={noLogo}
-                    className={`${goldHoverClass} ${isLoginHovered ? 'text-white' : 'text-[#c5a059]'} hover:text-white`}
+                    className={goldToWhiteLink}
                   >
                     Inicia sesión
                   </button>
                 </p>
                 <button
                   onClick={() => onLogin('guest')}
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  className={`text-sm font-medium transition-colors duration-300 border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10 ${isLoginHovered ? 'text-white' : 'text-[#c5a059]'} hover:text-white`}
+                  className={`${goldToWhiteLink} text-sm border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10`}
                 >
                   Entrar a la versión Demo (Invitado)
                 </button>
@@ -346,20 +291,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           {isRecovering && (
             <>
               <form onSubmit={handleRecoverPassword} className="space-y-4">
-                <input
-                  type="email"
-                  placeholder="Correo electrónico registrado"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  required
-                  className={inputClass}
-                />
-                <button
-                  type="submit"
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  className={submitBtnClass}
-                >
+                <input type="email" placeholder="Correo electrónico registrado" value={username} onChange={(e) => setUsername(e.target.value)} required className={inputClass} />
+                <button type="submit" className={submitBtnClass}>
                   Recuperar Acceso
                 </button>
               </form>
@@ -369,16 +302,14 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   ¿Recordó su contraseña?{' '}
                   <button
                     onClick={() => { setIsRecovering(false); setIsRegistering(false); }}
-                    onMouseEnter={logo} onMouseLeave={noLogo}
-                    className={`${goldHoverClass} ${isLoginHovered ? 'text-white' : 'text-[#c5a059]'} hover:text-white`}
+                    className={goldToWhiteLink}
                   >
                     Inicia sesión
                   </button>
                 </p>
                 <button
                   onClick={() => onLogin('guest')}
-                  onMouseEnter={logo} onMouseLeave={noLogo}
-                  className={`text-sm font-medium transition-colors duration-300 border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10 ${isLoginHovered ? 'text-white' : 'text-[#c5a059]'} hover:text-white`}
+                  className={`${goldToWhiteLink} text-sm border border-[#c5a059]/30 px-6 py-2 rounded-full hover:bg-[#c5a059]/10`}
                 >
                   Entrar a la versión Demo (Invitado)
                 </button>
