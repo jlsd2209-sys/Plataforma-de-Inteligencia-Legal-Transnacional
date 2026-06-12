@@ -12,10 +12,10 @@ type Message = { id: string; sender: 'user' | 'bot' | 'loading'; text: string; }
 
 const MODULES_DB = [
   { name: 'Monitor de Riesgo', hook: 'webhook-riesgo', icon: '🌐', demoText: "En la versión verificada para clientes, nuestro módulo cruza esta información en tiempo real para anticipar vulnerabilidades corporativas antes de que ocurran. Nuestro sistema es capaz de predecir contingencias binacionales evaluando miles de indicadores diarios. Para obtener un reporte completo, blindar sus operaciones y desbloquear la matriz predictiva aplicada a su caso, contacte a nuestros especialistas para habilitar su cuenta.", loadingText: "Analizando su consulta..." },
-  { name: 'Análisis Legal', hook: 'webhook-penal', icon: '⚖️', demoText: "En nuestro entorno verificado, este módulo estructura una defensa comparada, cruzando legislación vigente de Argentina y/o Venezuela junto con los tratados bilaterales para encontrar la mejor ruta de mitigación, generando dictámenes con niveles altos de precisión argumentativa. Para un análisis confidencial y detallado por nuestra red de expertos, inicie su proceso de alta como cliente.", loadingText: "Analizando su consulta..." },
+  { name: 'Análisis Legal', hook: 'webhook-penal', icon: '⚖️', demoText: "En nuestro entorno verificado, este módulo estructura una defensa comparada, cruzando legislación vigente de Argentina y/o Venezuela junto con los tratados bilaterales para encontrar la mejor ruta de mitigación, generando dictámenes con niveles altos de precisión argumentativa. Para un análisis confidencial y detailed por nuestra red de expertos, inicie su proceso de alta como cliente.", loadingText: "Analizando su consulta..." },
   { name: 'Auditoría Documental', hook: 'webhook-auditoria', icon: '📄', demoText: "En la red verificada, este servicio es capaz de procesar cientos de folios en segundos, detectando cláusulas abusivas, contingencias ocultas y vacíos normativos que el ojo humano podría pasar por alto. Si desea someter su documentación a nuestro ecosistema legal bajo estricto secreto profesional, contacte a nuestro equipo.", loadingText: "Analizando su consulta..." },
   { name: 'Memoria Institucional', hook: 'webhook-memoria', icon: '🏛️', demoText: "Este módulo exclusivo permite a nuestros clientes interactuar con el 'Cerebro Histórico' de sus casos, encontrando precedentes exactos, respuestas estratégicas en tiempo real y estandarizando sus decisiones legales victoriosas en el pasado. Su historial legal es su mayor activo; contáctenos para digitalizar y blindar su memoria corporativa.", loadingText: "Analizando su consulta..." },
-  { name: 'Informes Automáticos', hook: 'webhook-informes', icon: '📊', demoText: "En la versión sin restricciones, nuestro sistema cruza la data solicitada y emite un reporte estructurado de los casos, argumentado y maquetado con los estándares más altos, listos para ser presentados ante Juntas Directivas, ahorrando días de trabajo analítico. Habilite su usuario para obtener documentos listos para la acción.", loadingText: "Analizando su consulta..." },
+  { name: 'Informes Automáticos', hook: 'webhook-informes', icon: '📊', demoText: "En la versión sin restricciones, nuestro sistema cruza la data solicitada y emite un reporte de los casos, argumentado y maquetado con los estándares más altos, listos para ser presentados ante Juntas Directivas, ahorrando días de trabajo analítico. Habilite su usuario para obtener documentos listos para la acción.", loadingText: "Analizando su consulta..." },
   { name: 'Boletín Jurídico', hook: 'webhook-boletin', icon: '📖', demoText: "A diferencia de un boletín tradicional, este modelo monitorea gacetas oficiales y despachos legislativos 24/7, filtrando únicamente los cambios normativos que impactan directamente en el sector de cada cliente. No sufra sorpresas legales; contáctenos para configurar su radar personalizado.", loadingText: "Analizando su consulta..." }
 ];
 
@@ -79,6 +79,10 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
   const [isDesktopSidebarCollapsed, setIsDesktopSidebarCollapsed] = useState(false);
   const [isLogoHovered, setIsLogoHovered] = useState(false);
 
+  // Estados para controlar los nuevos modales premium
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+
   const storageKey = `lap_history_guest`;
   const [chatsHistory, setChatsHistory] = useState<Record<string, Message[]>>(() => { try { const saved = localStorage.getItem(storageKey); return saved ? JSON.parse(saved) : {}; } catch { return {}; } });
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -89,7 +93,22 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
   useEffect(() => { localStorage.setItem(storageKey, JSON.stringify(chatsHistory)); }, [chatsHistory]);
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [currentMessages]);
 
-  const handleClearChat = () => { if (window.confirm(`¿Seguro que desea eliminar el historial de ${moduloActivo}?`)) { setChatsHistory(prev => { const s = { ...prev }; delete s[moduloActivo]; return s; }); if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } };
+  const handleClearChat = () => { setShowClearConfirm(true); };
+  
+  const confirmClearChat = () => {
+    setChatsHistory(prev => { const s = { ...prev }; delete s[moduloActivo]; return s; });
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    setShowClearConfirm(false);
+    showToast("Historial eliminado.");
+  };
+
+  const handleLogoutClick = () => { setShowLogoutConfirm(true); };
+
+  const confirmLogout = () => {
+    setShowLogoutConfirm(false);
+    onLogout();
+  };
+
   const handleShareChat = async () => { if (currentMessages.length === 0) return; let chatText = `--- Historial Demo: ${moduloActivo} ---\n\n`; currentMessages.forEach(msg => { if (msg.sender === 'loading') return; const role = msg.sender === 'user' ? 'Usuario' : 'Asistente IA'; chatText += `[${role}]:\n${msg.text.replace(/<[^>]*>?/gm, '')}\n\n`; }); if (navigator.share) { try { await navigator.share({ title: `Reporte Demo`, text: chatText }); } catch (error) { console.log('Compartir cancelado', error); } } else { navigator.clipboard.writeText(chatText); showToast("Historial copiado."); } };
   const cambiarModulo = (nombre: string) => { setModuloActivo(nombre); setIsMobileMenuOpen(false); if ('speechSynthesis' in window) window.speechSynthesis.cancel(); };
   const handleChatScroll = () => { if (!scrollAreaRef.current) return; const { scrollTop, scrollHeight, clientHeight } = scrollAreaRef.current; setShowScrollBottom(scrollHeight - scrollTop - clientHeight > 50); };
@@ -162,12 +181,12 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
               <span className="text-[10px] text-[#c5a059] uppercase tracking-wider truncate">Modo Demo</span>
             </div>
           </div>
-          <button onClick={onLogout} className="flex items-center justify-center p-2.5 bg-gray-500/10 text-gray-400 hover:bg-[#c5a059]/10 hover:text-[#c5a059] rounded-xl transition-all"><LogOut size={18} /></button>
+          <button onClick={handleLogoutClick} className="flex items-center justify-center p-2.5 bg-gray-500/10 text-gray-400 hover:bg-[#c5a059]/10 hover:text-[#c5a059] rounded-xl transition-all"><LogOut size={18} /></button>
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col relative w-full h-full min-w-0 min-h-0 overflow-hidden overscroll-none transition-all duration-300">
-        <header className={`w-full flex-shrink-0 min-h-[4rem] border-b ${currentColors.mainHeaderBorder} flex items-center justify-between px-4 md:px-6 ${currentColors.mainHeaderBG} backdrop-blur-md z-30 transition-colors duration-300`}>
+      <main onScroll={(e) => { e.currentTarget.scrollTop = 0; }} className="flex-1 flex flex-col relative w-full h-full min-w-0 min-h-0 overflow-hidden overscroll-none transition-all duration-300">
+        <header className={`sticky top-0 w-full flex-shrink-0 min-h-[4rem] border-b ${currentColors.mainHeaderBorder} flex items-center justify-between px-4 md:px-6 ${currentColors.mainHeaderBG} backdrop-blur-md z-30 transition-colors duration-300`}>
           <div className="flex items-center gap-3 md:gap-4 w-full">
             <button className={`md:hidden p-2 -ml-2 rounded-full transition-all flex-shrink-0 ${theme === 'dark' ? 'text-gray-300 hover:bg-[#1e2a40]' : 'text-gray-600 hover:bg-gray-200'}`} onClick={() => setIsMobileMenuOpen(true)}><Menu size={22} /></button>
             <div className="flex flex-col items-start gap-1 md:flex-row md:items-center md:gap-3 flex-1">
@@ -241,7 +260,7 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
                   <button onClick={stopRecording} className="p-2.5 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white transition-all active:scale-95"><Square size={20} className="fill-current" /></button>
                 ) : (
                   inputText.trim() ? (
-                    <button onClick={handleSend} className={`${currentColors.sendBtn} p-2.5 rounded-full transition-all active:scale-95`}><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg></button>
+                    <button onClick={handleSend} className={`${currentColors.sendBtn} p-2.5 rounded-full transition-all active:scale-95`}><svg xmlns="http://www.w3.org/2000/xl" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg></button>
                   ) : (
                     <button onClick={startRecording} className={`${currentColors.sendBtn} p-2.5 rounded-full transition-all active:scale-95`}><Mic size={20} /></button>
                   )
@@ -251,6 +270,95 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
           </div>
         </footer>
       </main>
+
+      {/* --- NUEVOS MODALES DE CONFIRMACIÓN PREMIUM EN PALETA DE LA PÁGINA --- */}
+      <AnimatePresence>
+        {/* Modal de Borrado de Historial */}
+        {showClearConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[250] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-[#151f32] border border-[#c5a059]/30 rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center"
+            >
+              <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto mb-4">
+                <Trash2 size={22} className="text-red-400" />
+              </div>
+              <h3 className="text-lg font-serif font-medium text-white mb-2">
+                Eliminar Historial
+              </h3>
+              <p className="text-gray-300 text-sm mb-6 leading-relaxed">
+                ¿Está seguro de que desea eliminar el historial de <strong className="text-[#c5a059]">{moduloActivo}</strong>? Esta acción no se puede deshacer.
+              </p>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowClearConfirm(false)}
+                  className="flex-1 py-2.5 rounded-xl border border-gray-600 text-gray-300 hover:bg-gray-800 text-sm font-medium transition-all"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmClearChat}
+                  className="flex-1 py-2.5 rounded-xl bg-red-500/20 text-red-400 hover:bg-red-500/30 border border-red-500/30 text-sm font-medium transition-all"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Modal de Cierre de Sesión */}
+        {showLogoutConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[250] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-[#151f32] border border-[#c5a059]/30 rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center"
+            >
+              <div className="w-12 h-12 rounded-full bg-[#c5a059]/10 border border-[#c5a059]/30 flex items-center justify-center mx-auto mb-4">
+                <LogOut size={22} className="text-[#c5a059]" />
+              </div>
+              <h3 className="text-lg font-serif font-medium text-white mb-2">
+                Cerrar Sesión
+              </h3>
+              <p className="text-gray-300 text-sm mb-6 leading-relaxed">
+                ¿Está seguro de que desea salir de la sesión actual y abandonar el Modo Demo?
+              </p>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowLogoutConfirm(false)}
+                  className="flex-1 py-2.5 rounded-xl border border-gray-600 text-gray-300 hover:bg-gray-800 text-sm font-medium transition-all"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="button"
+                  onClick={confirmLogout}
+                  className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#c5a059] to-[#8b6e3d] text-[#0a1526] font-bold text-sm uppercase tracking-wider hover:shadow-[0_0_15px_rgba(197,160,89,0.3)] transition-all"
+                >
+                  Salir
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
