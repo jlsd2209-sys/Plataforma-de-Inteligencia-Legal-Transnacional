@@ -125,7 +125,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         <Particles count={40} />
       </div>
 
-      {/* Modal de notificación con Framer Motion */}
+      {/* Modal de notificación */}
       <AnimatePresence>
         {notification && (
           <motion.div
@@ -162,7 +162,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               >
                 {notification.title}
               </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-8">
+              <p className="text-gray-300 text-sm leading-relaxed mb-6">
                 {notification.message}
               </p>
               <button
@@ -180,7 +180,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         )}
       </AnimatePresence>
 
-      {/* Contenedor Principal (Tarjeta de login) */}
+      {/* ── TARJETA ÚNICA ── */}
       <div
         className="relative z-10 w-full max-w-md mx-4 bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] transition-all duration-500 overflow-hidden"
         onMouseEnter={() => setIsLoginHovered(true)}
@@ -191,9 +191,9 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="flex flex-col items-center justify-center text-center pt-8 sm:pt-10 px-8 sm:px-10 pb-6"
+          className="flex flex-col items-center justify-center text-center pt-8 px-8"
         >
-          <div className="relative w-24 h-28 mb-4 flex-shrink-0 flex items-center justify-center">
+          <div className="relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center">
             <img
               src={logoShield}
               alt="Logo"
@@ -212,16 +212,13 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           </p>
         </motion.div>
 
-        {/* Cuerpo: formularios */}
-        <div className="px-8 sm:px-10 pb-8 sm:pb-10">
+        {/* ── Cuerpo: sin tarjeta interior ── */}
+        <div className="px-8 pb-6 pt-6">
 
-          {/* Formulario de Login */}
+          {/* ── LOGIN ── */}
           {!isRegistering && !isRecovering && (
             <>
-              <form
-                onSubmit={handleLogin}
-                className="bg-[#0d1d35]/80 backdrop-blur-md border border-[#c5a059]/20 rounded-2xl p-8 shadow-2xl space-y-5"
-              >
+              <form onSubmit={handleLogin} className="space-y-4">
                 <div className="relative">
                   <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                   <input
@@ -268,13 +265,13 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
 
                 <button
                   type="submit"
-                  className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-4 rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95 mt-2"
+                  className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
                 >
                   Acceder de forma segura
                 </button>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-gray-800 text-center space-y-4">
+              <div className="mt-4 pt-4 border-t border-gray-800 text-center space-y-3">
                 <p className="text-gray-400 text-sm">
                   ¿No eres cliente aún?{' '}
                   <button
@@ -298,14 +295,11 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             </>
           )}
 
-          {/* Formulario de Registro */}
+          {/* ── REGISTRO ── */}
           {isRegistering && (
             <>
-              <form
-                onSubmit={handleRegister}
-                className="bg-[#0d1d35]/80 backdrop-blur-md border border-[#c5a059]/20 rounded-2xl p-8 shadow-2xl space-y-4"
-              >
-                <h2 className="text-white text-lg font-light text-center mb-2 uppercase tracking-widest">
+              <form onSubmit={handleRegister} className="space-y-4">
+                <h2 className="text-white text-base font-light text-center uppercase tracking-widest mb-2">
                   Nuevo Registro
                 </h2>
                 <input
@@ -342,13 +336,13 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                 />
                 <button
                   type="submit"
-                  className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-4 rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95 mt-2"
+                  className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
                 >
                   Enviar solicitud
                 </button>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-gray-800 text-center space-y-4">
+              <div className="mt-4 pt-4 border-t border-gray-800 text-center space-y-3">
                 <p className="text-gray-400 text-sm">
                   ¿Ya tienes una cuenta?{' '}
                   <button
@@ -371,14 +365,11 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             </>
           )}
 
-          {/* Formulario de Recuperación */}
+          {/* ── RECUPERAR CONTRASEÑA ── */}
           {isRecovering && (
             <>
-              <form
-                onSubmit={handleRecoverPassword}
-                className="bg-[#0d1d35]/80 backdrop-blur-md border border-[#c5a059]/20 rounded-2xl p-8 shadow-2xl space-y-4"
-              >
-                <h2 className="text-white text-lg font-light text-center mb-2 uppercase tracking-widest">
+              <form onSubmit={handleRecoverPassword} className="space-y-4">
+                <h2 className="text-white text-base font-light text-center uppercase tracking-widest mb-2">
                   Recuperar Acceso
                 </h2>
                 <input
@@ -391,13 +382,13 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                 />
                 <button
                   type="submit"
-                  className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-4 rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95 mt-2"
+                  className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
                 >
                   Enviar instrucciones
                 </button>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-gray-800 text-center space-y-4">
+              <div className="mt-4 pt-4 border-t border-gray-800 text-center space-y-3">
                 <p className="text-gray-400 text-sm">
                   ¿Recordó su contraseña?{' '}
                   <button
@@ -420,7 +411,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             </>
           )}
 
-        </div>{/* fin cuerpo */}
+        </div>
       </div>
 
       {/* Chatbot flotante */}
