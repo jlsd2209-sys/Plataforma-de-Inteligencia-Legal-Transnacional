@@ -223,7 +223,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
                   <button
                     type="button"
                     onClick={() => setIsRecovering(true)}
-                    className="text-xs text-gray-400 hover:gradient-text-gold transition-colors"
+                    className="text-xs text-gray-400 hover:text-[#e2c792] transition-colors"
                   >
                     ¿Olvidó su contraseña?
                   </button>
