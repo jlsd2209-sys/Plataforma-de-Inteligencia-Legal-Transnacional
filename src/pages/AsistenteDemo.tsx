@@ -851,7 +851,7 @@ export default function AsistentePage() {
                 transition={{ duration: 0.4, delay: 0.1 }}
                 className="flex flex-col items-center justify-center text-center pt-8 px-10"
               >
-                <div className="p-3.5 bg-[#c5a059]/10 border border-[#c5a059]/20 rounded-full mb-4 text-[#c5a059]">
+                <div className="p-3.5 bg-red-500/10 border border-red-500/20 rounded-full mb-4 text-red-400">
                   <Trash2 size={26} />
                 </div>
                 <h3 className="text-xl font-bold text-white tracking-wide">
