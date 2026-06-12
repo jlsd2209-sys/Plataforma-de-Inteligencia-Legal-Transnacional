@@ -172,10 +172,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             Plataforma Legal Transnacional
           </h1>
 
-          {/* Subtítulo — dorado sólido → blanco al hover */}
-          <p className="gradient-text-gold text-xs uppercase tracking-widest mt-1">
-            Centro de Inteligencia Legal
-          </p>
         </motion.div>
 
         {/* ── Cuerpo ── */}
