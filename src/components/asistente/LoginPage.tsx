@@ -99,7 +99,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
 
   // Fondo original de los inputs: bg-[#1e2330]/80
   const inputClass = "w-full bg-[#1e2330]/80 text-white placeholder-gray-500 border border-gray-700 rounded-xl p-4 focus:border-[#d4af70] focus:ring-1 focus:ring-[#d4af70] outline-none transition-all text-sm";
-  const submitBtnClass = "w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#d4af70] via-[#e2c792] to-[#d4af70] text-[#0a1526] font-bold uppercase tracking-wider py-3 text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95";
+  const submitBtnClass = "w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#d4af70] via-[#f0deb0] to-[#d4af70] text-[#0a1526] font-bold uppercase tracking-wider py-3 text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95";
   const footerClass = "mt-4 pt-4 border-t border-gray-800 text-center space-y-3";
   // Efecto original: dorado sólido → blanco al hover, sin degradado
   const goldLink = "text-[#e2c792] hover:text-white transition-colors duration-300 font-medium";
