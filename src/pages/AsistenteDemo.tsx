@@ -215,7 +215,7 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
                 <div className="flex gap-3 w-full">
                   <button
                     onClick={() => setConfirmModal(null)}
-                    className="flex-1 py-3 rounded-xl text-sm font-medium text-gray-300 border border-gray-700 hover:border-gray-400 hover:text-white transition-all"
+                    className="flex-1 py-3 rounded-xl text-sm font-medium text-gray-300 bg-[#1e2330]/80 border border-gray-700 hover:border-white/60 hover:text-white hover:bg-white/5 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] transition-all"
                   >
                     Cancelar
                   </button>
