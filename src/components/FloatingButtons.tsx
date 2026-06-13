@@ -48,6 +48,7 @@ export const FloatingButtons = () => {
   
   // Estados de micrófono
   const [isRecording, setIsRecording] = useState(false);
+  const [confirmClear, setConfirmClear] = useState(false);
   const recognitionRef = useRef<any>(null);
 
   const initialMessage: Message = { 
@@ -121,11 +122,7 @@ export const FloatingButtons = () => {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  const handleClearChat = () => {
-    if (window.confirm("¿Deseas reiniciar la conversación?")) {
-      setMessages([initialMessage]);
-    }
-  };
+  const handleClearChat = () => setConfirmClear(true);
 
   // Lógica del Micrófono
   const startRecording = () => {
@@ -208,6 +205,49 @@ export const FloatingButtons = () => {
 
   return (
     <>
+      <AnimatePresence>
+  {confirmClear && (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+        className="w-full max-w-sm bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] overflow-hidden"
+      >
+        <div className="p-8 flex flex-col items-center text-center">
+          <div className="w-16 h-20 mb-4 flex-shrink-0">
+            <img src={logoShield} alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(197,160,89,0.4)]" />
+          </div>
+          <div className="w-12 h-12 rounded-full flex items-center justify-center mb-4 bg-red-500/10 border border-red-500/30">
+            <Trash2 size={22} className="text-red-400" />
+          </div>
+          <h3 className="text-white font-serif text-lg tracking-wide mb-2">
+            Reiniciar Conversación
+          </h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-8">
+            ¿Deseas reiniciar la conversación? El historial actual se eliminará.
+          </p>
+          <div className="flex gap-3 w-full">
+            <button
+              onClick={() => setConfirmClear(false)}
+              className="flex-1 py-3 rounded-xl text-sm font-medium text-gray-300 border border-gray-700 hover:border-gray-400 hover:text-white transition-all"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={() => { setMessages([initialMessage]); setConfirmClear(false); }}
+              className="flex-1 flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
+            >
+              Reiniciar
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+      
       <style>{`
         @keyframes agent-pulse {
           0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); background-color: rgba(255, 255, 255, 0.9); }
