@@ -221,7 +221,7 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
                   </button>
                   <button
                     onClick={confirmAction}
-                    className="flex-1 flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
+                    className="flex-1 flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] text-sm font-bold uppercase tracking-wider py-3 rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
                   >
                     {confirmModal.type === 'logout' ? 'Salir' : 'Eliminar'}
                   </button>
