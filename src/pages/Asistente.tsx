@@ -13,11 +13,11 @@ export default function AsistentePage() {
   };
 
   const handleLogout = () => {
-    if (window.confirm("¿Seguro que desea cerrar sesión de forma segura?")) {
-      setAccessMode('none');
-      setUsername('');
-      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-    }
+    // CAMBIO REALIZADO: Se remueve la condición window.confirm nativa del navegador. 
+    // La confirmación segura y estética ahora es gestionada por el modal integrado de la interfaz.
+    setAccessMode('none');
+    setUsername('');
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
   };
 
   if (accessMode === 'none') {
