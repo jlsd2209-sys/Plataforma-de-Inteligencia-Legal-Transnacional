@@ -3,12 +3,18 @@ import logoShield from '@/assets/logo.png.png';
 import { useSearchParams } from 'react-router-dom';
 import { Particles } from '@/components/Particles';
 import {
-  Sun, Moon, Send, Menu, X, LogOut, User, Trash2, Copy, Check,
+  Sun, Moon, Menu, X, LogOut, Trash2, Copy, Check,
   ThumbsUp, ThumbsDown, Paperclip, Mic, Square, Share2, Volume2, VolumeX, Share, Edit2, ChevronDown, ChevronUp, ArrowDown
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type Message = { id: string; sender: 'user' | 'bot' | 'loading'; text: string; };
+
+// ── Tipo para los modales de confirmación ──
+type ConfirmModal = {
+  type: 'logout' | 'clearChat';
+  modulo?: string;
+} | null;
 
 const MODULES_DB = [
   { name: 'Monitor de Riesgo', hook: 'webhook-riesgo', icon: '🌐', demoText: "En la versión verificada para clientes, nuestro módulo cruza esta información en tiempo real para anticipar vulnerabilidades corporativas antes de que ocurran. Nuestro sistema es capaz de predecir contingencias binacionales evaluando miles de indicadores diarios. Para obtener un reporte completo, blindar sus operaciones y desbloquear la matriz predictiva aplicada a su caso, contacte a nuestros especialistas para habilitar su cuenta.", loadingText: "Analizando su consulta..." },
@@ -79,7 +85,9 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
   const [isDesktopSidebarCollapsed, setIsDesktopSidebarCollapsed] = useState(false);
   const [isLogoHovered, setIsLogoHovered] = useState(false);
 
-  // ── FIX MOBILE VIEWPORT: calcula altura real excluyendo teclado virtual ──
+  // ── Estado para modales de confirmación personalizados ──
+  const [confirmModal, setConfirmModal] = useState<ConfirmModal>(null);
+
   useEffect(() => {
     const setVh = () => {
       document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
@@ -99,7 +107,21 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
   useEffect(() => { localStorage.setItem(storageKey, JSON.stringify(chatsHistory)); }, [chatsHistory]);
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [currentMessages]);
 
-  const handleClearChat = () => { if (window.confirm(`¿Seguro que desea eliminar el historial de ${moduloActivo}?`)) { setChatsHistory(prev => { const s = { ...prev }; delete s[moduloActivo]; return s; }); if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } };
+  // ── Confirmación de acciones ──
+  const confirmAction = () => {
+    if (!confirmModal) return;
+    if (confirmModal.type === 'logout') {
+      onLogout();
+    } else if (confirmModal.type === 'clearChat') {
+      setChatsHistory(prev => { const s = { ...prev }; delete s[moduloActivo]; return s; });
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    }
+    setConfirmModal(null);
+  };
+
+  const handleClearChat = () => setConfirmModal({ type: 'clearChat', modulo: moduloActivo });
+  const handleLogout = () => setConfirmModal({ type: 'logout' });
+
   const handleShareChat = async () => { if (currentMessages.length === 0) return; let chatText = `--- Historial Demo: ${moduloActivo} ---\n\n`; currentMessages.forEach(msg => { if (msg.sender === 'loading') return; const role = msg.sender === 'user' ? 'Usuario' : 'Asistente IA'; chatText += `[${role}]:\n${msg.text.replace(/<[^>]*>?/gm, '')}\n\n`; }); if (navigator.share) { try { await navigator.share({ title: `Reporte Demo`, text: chatText }); } catch (error) { console.log('Compartir cancelado', error); } } else { navigator.clipboard.writeText(chatText); showToast("Historial copiado."); } };
   const cambiarModulo = (nombre: string) => { setModuloActivo(nombre); setIsMobileMenuOpen(false); if ('speechSynthesis' in window) window.speechSynthesis.cancel(); };
   const handleChatScroll = () => { if (!scrollAreaRef.current) return; const { scrollTop, scrollHeight, clientHeight } = scrollAreaRef.current; setShowScrollBottom(scrollHeight - scrollTop - clientHeight > 50); };
@@ -124,11 +146,9 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
     setChatsHistory(prev => ({ ...prev, [moduloActivo]: [...(prev[moduloActivo] || []), newUserMsg].slice(-50) }));
     setInputText('');
     const textarea = document.getElementById('userInput'); if (textarea) textarea.style.height = 'auto';
-
     const loadingId = (Date.now() + 1).toString();
     const activeModuleData = MODULES_DB.find(m => m.name === moduloActivo);
     setChatsHistory(prev => ({ ...prev, [moduloActivo]: [...(prev[moduloActivo] || []), { id: loadingId, sender: 'loading', text: activeModuleData?.loadingText || "Analizando..." }].slice(-50) }));
-
     setTimeout(() => {
       setChatsHistory(prev => {
         const filtered = (prev[moduloActivo] || []).filter(msg => msg.id !== loadingId);
@@ -145,12 +165,88 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
   const currentColors = palettes[theme];
 
   return (
-    // ── CAMBIO CLAVE 1: usar var(--app-height) en lugar de h-screen/100vh ──
     <div
-      className={`flex w-screen overflow-hidden overscroll-none ${currentColors.appBG} font-sans transition-colors duration-300`}
-      style={{ height: 'var(--app-height, 100dvh)', position: 'fixed', inset: 0 }}
+      className={`flex w-screen overscroll-none ${currentColors.appBG} font-sans transition-colors duration-300`}
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
     >
       {isMobileMenuOpen && <div className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm transition-opacity" onClick={() => setIsMobileMenuOpen(false)} />}
+
+      {/* ── MODAL DE CONFIRMACIÓN PERSONALIZADO ── */}
+      <AnimatePresence>
+        {confirmModal && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full max-w-sm rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(197,160,89,0.2)] border border-[#c5a059]/30"
+            >
+              {/* Fondo con imagen del sidebar */}
+              <div className="absolute inset-0 z-0">
+                <img src="/fondo-servicios.jpg.png" alt="" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-[#0a1526]/88 backdrop-blur-[3px]"></div>
+                <div className="absolute inset-0 pointer-events-none opacity-40">
+                  <Particles count={15} />
+                </div>
+              </div>
+
+              {/* Contenido */}
+              <div className="relative z-10 p-8 flex flex-col items-center text-center">
+                {/* Logo */}
+                <div className="w-16 h-20 mb-4 flex-shrink-0">
+                  <img src={logoShield} alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(197,160,89,0.4)]" />
+                </div>
+
+                {/* Icono de acción */}
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
+                  confirmModal.type === 'logout'
+                    ? 'bg-red-500/10 border border-red-500/30'
+                    : 'bg-[#c5a059]/10 border border-[#c5a059]/30'
+                }`}>
+                  {confirmModal.type === 'logout'
+                    ? <LogOut size={22} className="text-red-400" />
+                    : <Trash2 size={22} className="text-[#c5a059]" />
+                  }
+                </div>
+
+                {/* Título */}
+                <h3 className="text-white font-serif text-lg tracking-wide mb-2">
+                  {confirmModal.type === 'logout' ? 'Cerrar Sesión' : 'Eliminar Historial'}
+                </h3>
+
+                {/* Mensaje */}
+                <p className="text-gray-300 text-sm leading-relaxed mb-8">
+                  {confirmModal.type === 'logout'
+                    ? '¿Seguro que desea cerrar sesión y salir de la plataforma segura?'
+                    : `¿Seguro que desea eliminar el historial de ${confirmModal.modulo}? Esta acción no puede deshacerse.`
+                  }
+                </p>
+
+                {/* Botones */}
+                <div className="flex gap-3 w-full">
+                  <button
+                    onClick={() => setConfirmModal(null)}
+                    className="flex-1 py-3 rounded-xl text-sm font-medium text-gray-300 border border-gray-600 hover:border-gray-400 hover:text-white transition-all"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={confirmAction}
+                    className={`flex-1 py-3 rounded-xl text-sm font-bold uppercase tracking-wider transition-all active:scale-95 ${
+                      confirmModal.type === 'logout'
+                        ? 'bg-red-500/20 text-red-300 border border-red-500/40 hover:bg-red-500/30'
+                        : 'bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] hover:shadow-[0_0_20px_rgba(197,160,89,0.4)]'
+                    }`}
+                  >
+                    {confirmModal.type === 'logout' ? 'Salir' : 'Eliminar'}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* SIDEBAR */}
       <aside className={`fixed md:relative top-0 left-0 z-50 h-full flex flex-col border-r border-gray-800 overflow-x-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0 w-[260px]' : '-translate-x-full md:translate-x-0'} ${isDesktopSidebarCollapsed ? 'md:w-[80px]' : 'md:w-[260px]'}`}>
@@ -181,14 +277,12 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
               <span className="text-[10px] text-[#c5a059] uppercase tracking-wider truncate">Modo Demo</span>
             </div>
           </div>
-          <button onClick={onLogout} className="flex items-center justify-center p-2.5 bg-gray-500/10 text-gray-400 hover:bg-[#c5a059]/10 hover:text-[#c5a059] rounded-xl transition-all"><LogOut size={18} /></button>
+          <button onClick={handleLogout} className="flex items-center justify-center p-2.5 bg-gray-500/10 text-gray-400 hover:bg-[#c5a059]/10 hover:text-[#c5a059] rounded-xl transition-all"><LogOut size={18} /></button>
         </div>
       </aside>
 
-      {/* ── MAIN: columna flex que ocupa el espacio restante ── */}
+      {/* MAIN */}
       <main className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden transition-all duration-300">
-
-        {/* ── CAMBIO CLAVE 2: header con flex-shrink-0 garantiza que nunca se encoja ── */}
         <header className={`flex-shrink-0 w-full min-h-[4rem] border-b ${currentColors.mainHeaderBorder} flex items-center justify-between px-4 md:px-6 ${currentColors.mainHeaderBG} backdrop-blur-md z-30 transition-colors duration-300`}>
           <div className="flex items-center gap-3 md:gap-4 w-full">
             <button className={`md:hidden p-2 -ml-2 rounded-full transition-all flex-shrink-0 ${theme === 'dark' ? 'text-gray-300 hover:bg-[#1e2a40]' : 'text-gray-600 hover:bg-gray-200'}`} onClick={() => setIsMobileMenuOpen(true)}><Menu size={22} /></button>
@@ -209,12 +303,7 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
           </div>
         </header>
 
-        {/* ── CAMBIO CLAVE 3: section con overflow-y-auto y min-h-0 para scroll interno ── */}
-        <section
-          className={`flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-contain px-4 md:px-12 py-4 md:py-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative ${currentColors.textArea}`}
-          ref={scrollAreaRef}
-          onScroll={handleChatScroll}
-        >
+        <section className={`flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-contain px-4 md:px-12 py-4 md:py-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative ${currentColors.textArea}`} ref={scrollAreaRef} onScroll={handleChatScroll}>
           <div className="flex flex-col space-y-6 w-full max-w-3xl mx-auto flex-shrink-0">
             {currentMessages.length === 0 && (
               <div className="flex gap-4 items-start mb-4">
@@ -251,7 +340,6 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
           <div className="fixed bottom-28 left-1/2 -translate-x-1/2 z-[100] bg-[#0a1526] text-[#c5a059] border border-[#c5a059]/30 px-6 py-3 rounded-full shadow-[0_0_20px_rgba(197,160,89,0.2)] flex items-center gap-3 text-[14px] font-medium animate-in fade-in zoom-in-95 duration-300 text-center whitespace-nowrap max-w-[90vw] overflow-hidden text-ellipsis"><Check size={16} className="flex-shrink-0" /><span className="truncate">{toastMsg}</span></div>
         )}
 
-        {/* ── CAMBIO CLAVE 4: footer con flex-shrink-0 para que nunca desaparezca ── */}
         <footer className="flex-shrink-0 w-full px-4 py-2 sm:p-4 pb-4 md:pb-8 bg-transparent relative z-20">
           <div className="max-w-3xl mx-auto relative group">
             <div className={`${currentColors.footerBG} rounded-[24px] md:rounded-3xl border border-gray-700 p-1.5 flex flex-row items-end gap-1 focus-within:border-[#c5a059] transition-all shadow-2xl duration-300 min-h-[50px]`}>
