@@ -137,7 +137,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <p className="text-white text-sm leading-relaxed mb-6">{notification.message}</p>
               <button
                 onClick={() => setNotification(null)}
-                className={`w-full py-3 rounded-xl font-medium transition-all ${notification.isError ? 'bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-600/40' : 'bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] text-sm font-bold uppercase tracking-wider hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] active:scale-95'}`}
+                className={`w-full py-3 rounded-xl font-medium transition-all ${notification.isError ? 'bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] text-sm font-bold uppercase tracking-wider hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] active:scale-95' : 'bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] text-sm font-bold uppercase tracking-wider hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] active:scale-95'}`}
               >
                 Entendido
               </button>
