@@ -126,7 +126,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
               onMouseEnter={() => setIsNotificationHovered(true)}
               onMouseLeave={() => setIsNotificationHovered(false)}
-              className="bg-[#0d1d35] border border-[#c5a059]/30 rounded-2xl p-8 max-w-md w-full shadow-2xl text-center"
+              className="bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] p-8 max-w-md w-full text-center"
             >
               <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${notification.isError ? 'bg-red-500/10 border border-red-500/30' : 'bg-[#c5a059]/10 border border-[#c5a059]/30'}`}>
                 {notification.isError ? <X size={28} className="text-red-400" /> : <Lock size={28} className="text-[#c5a059]" />}
