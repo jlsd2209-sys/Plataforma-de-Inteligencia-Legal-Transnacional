@@ -320,9 +320,11 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
           </AnimatePresence>
         </section>
 
+        {/* ---- MENSAJE FLOTANTE AJUSTADO AL CONTENIDO ---- */}
         {toastMsg && (
-          <div className="fixed bottom-28 left-1/2 -translate-x-1/2 z-[100] w-full max-w-sm bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] overflow-hidden text-[#e2c792] px-6 py-3.5 flex items-center justify-center gap-3 text-[14px] font-medium animate-in fade-in zoom-in-95 duration-300 text-center">
-            <Check size={16} className="flex-shrink-0 text-[#c5a059]" /><span className="truncate">{toastMsg}</span>
+          <div className="fixed bottom-28 left-1/2 -translate-x-1/2 z-[100] w-fit whitespace-nowrap bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-full shadow-[0_0_40px_rgba(197,160,89,0.15)] text-[#e2c792] px-8 py-3.5 flex items-center justify-center gap-3 text-[14px] font-medium animate-in fade-in zoom-in-95 duration-300 text-center">
+            <Check size={16} className="flex-shrink-0 text-[#c5a059]" />
+            <span>{toastMsg}</span>
           </div>
         )}
 
