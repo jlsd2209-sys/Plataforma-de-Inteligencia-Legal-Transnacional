@@ -227,7 +227,67 @@ export default function AsistenteVerificado({ username, onLogout }: { username: 
   return (
     <div className={`fixed inset-0 flex w-screen overflow-hidden overscroll-none ${currentColors.appBG} font-sans transition-colors duration-300`}>
       {isMobileMenuOpen && <div className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm transition-opacity" onClick={() => setIsMobileMenuOpen(false)} />}
+  
+      {/* ── MODAL DE CONFIRMACIÓN PERSONALIZADO ── */}
+      <AnimatePresence>
+        {confirmModal && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-sm bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] overflow-hidden"
+            >
+              <div className="p-8 flex flex-col items-center text-center">
 
+                {/* Icono de acción */}
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
+                  confirmModal.type === 'logout'
+                    ? 'bg-red-500/10 border border-red-500/30'
+                    : 'bg-red-500/10 border border-red-500/30'
+                }`}>
+                  {confirmModal.type === 'logout'
+                    ? <LogOut size={22} className="text-red-400" />
+                    : <Trash2 size={22} className="text-red-400" />
+                  }
+                </div>
+
+                {/* Título */}
+                <h3 className="text-white font-serif text-lg tracking-wide mb-2">
+                  {confirmModal.type === 'logout' ? 'Cerrar Sesión' : 'Eliminar Historial'}
+                </h3>
+
+                {/* Mensaje */}
+                <p className="text-gray-300 text-sm leading-relaxed mb-8">
+                  {confirmModal.type === 'logout'
+                    ? '¿Seguro que desea cerrar sesión y salir de la plataforma segura?'
+                    : `¿Seguro que desea eliminar el historial de ${confirmModal.modulo}? Esta acción no puede deshacerse.`
+                  }
+                </p>
+
+                {/* Botones */}
+                <div className="flex gap-3 w-full">
+                  <button
+                    onClick={() => setConfirmModal(null)}
+                    className="flex-1 py-3 rounded-xl text-sm font-medium text-gray-300 border border-gray-700 hover:border-gray-400 hover:text-white transition-all"
+                  >
+                    Cancelar
+                  </button>
+                  <button
+                    onClick={confirmAction}
+                    className="flex-1 flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
+                  >
+                    {confirmModal.type === 'logout' ? 'Salir' : 'Eliminar'}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* SIDEBAR */}
       <aside className={`fixed md:relative top-0 left-0 z-50 h-full flex flex-col border-r border-gray-800 overflow-x-hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0 w-[260px]' : '-translate-x-full md:translate-x-0'} ${isDesktopSidebarCollapsed ? 'md:w-[80px]' : 'md:w-[260px]'}`}>
         <button className="absolute top-4 right-4 z-50 md:hidden text-gray-400 hover:text-white" onClick={() => setIsMobileMenuOpen(false)}><X size={24} /></button>
         <div className="absolute inset-0 z-0 overflow-hidden"><img src="/fondo-servicios.jpg.png" alt="" className="w-full h-full object-cover" /><div className={`absolute inset-0 ${currentColors.sidebarOverlay} transition-colors duration-300`}></div></div>
