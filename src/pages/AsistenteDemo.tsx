@@ -321,7 +321,9 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
         </section>
 
         {toastMsg && (
-          <div className="fixed bottom-28 left-1/2 -translate-x-1/2 z-[100] bg-[#0a1526] text-[#c5a059] border border-[#c5a059]/30 px-6 py-3 rounded-full shadow-[0_0_20px_rgba(197,160,89,0.2)] flex items-center gap-3 text-[14px] font-medium animate-in fade-in zoom-in-95 duration-300 text-center whitespace-nowrap max-w-[90vw] overflow-hidden text-ellipsis"><Check size={16} className="flex-shrink-0" /><span className="truncate">{toastMsg}</span></div>
+          <div className="fixed bottom-28 left-1/2 -translate-x-1/2 z-[100] w-full max-w-sm bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] overflow-hidden text-[#e2c792] px-6 py-3.5 flex items-center justify-center gap-3 text-[14px] font-medium animate-in fade-in zoom-in-95 duration-300 text-center">
+            <Check size={16} className="flex-shrink-0 text-[#c5a059]" /><span className="truncate">{toastMsg}</span>
+          </div>
         )}
 
         <footer className="flex-shrink-0 w-full px-4 py-2 sm:p-4 pb-4 md:pb-8 bg-transparent relative z-20">
