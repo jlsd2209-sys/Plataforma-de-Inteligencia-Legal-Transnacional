@@ -111,7 +111,9 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
   const confirmAction = () => {
     if (!confirmModal) return;
     if (confirmModal.type === 'logout') {
-      onLogout();
+      setConfirmModal(null);
+      // Pequeño delay para que el modal cierre antes de llamar al padre
+      setTimeout(() => onLogout(), 50);
     } else if (confirmModal.type === 'clearChat') {
       setChatsHistory(prev => { const s = { ...prev }; delete s[moduloActivo]; return s; });
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
@@ -180,19 +182,9 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
-              className="relative w-full max-w-sm rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(197,160,89,0.2)] border border-[#c5a059]/30"
+              className="w-full max-w-sm bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] overflow-hidden"
             >
-              {/* Fondo con imagen del sidebar */}
-              <div className="absolute inset-0 z-0">
-                <img src="/fondo-servicios.jpg.png" alt="" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-[#0a1526]/88 backdrop-blur-[3px]"></div>
-                <div className="absolute inset-0 pointer-events-none opacity-40">
-                  <Particles count={15} />
-                </div>
-              </div>
-
-              {/* Contenido */}
-              <div className="relative z-10 p-8 flex flex-col items-center text-center">
+              <div className="p-8 flex flex-col items-center text-center">
                 {/* Logo */}
                 <div className="w-16 h-20 mb-4 flex-shrink-0">
                   <img src={logoShield} alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(197,160,89,0.4)]" />
@@ -227,17 +219,13 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
                 <div className="flex gap-3 w-full">
                   <button
                     onClick={() => setConfirmModal(null)}
-                    className="flex-1 py-3 rounded-xl text-sm font-medium text-gray-300 border border-gray-600 hover:border-gray-400 hover:text-white transition-all"
+                    className="flex-1 py-3 rounded-xl text-sm font-medium text-gray-300 border border-gray-700 hover:border-gray-400 hover:text-white transition-all"
                   >
                     Cancelar
                   </button>
                   <button
                     onClick={confirmAction}
-                    className={`flex-1 py-3 rounded-xl text-sm font-bold uppercase tracking-wider transition-all active:scale-95 ${
-                      confirmModal.type === 'logout'
-                        ? 'bg-red-500/20 text-red-300 border border-red-500/40 hover:bg-red-500/30'
-                        : 'bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] hover:shadow-[0_0_20px_rgba(197,160,89,0.4)]'
-                    }`}
+                    className="flex-1 flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-3 rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
                   >
                     {confirmModal.type === 'logout' ? 'Salir' : 'Eliminar'}
                   </button>
