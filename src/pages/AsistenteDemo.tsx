@@ -189,12 +189,12 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
                 {/* Icono de acción */}
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
                   confirmModal.type === 'logout'
-                    ? 'bg-red-500/10 border border-red-500/30'
-                    : 'bg-red-500/10 border border-red-500/30'
+                    ? 'bg-orange-500/10 border border-orange-500/30'
+                    : 'bg-orange-500/10 border border-orange-500/30'
                 }`}>
                   {confirmModal.type === 'logout'
-                    ? <LogOut size={22} className="text-red-400" />
-                    : <Trash2 size={22} className="text-red-400" />
+                    ? <LogOut size={22} className="text-orange-400" />
+                    : <Trash2 size={22} className="text-orange-400" />
                   }
                 </div>
 
