@@ -76,8 +76,20 @@
 
   html {
   scroll-behavior: smooth;
-  overflow-x: hidden;  
-    }
+  overflow-x: hidden;
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
+body {
+  height: 100%;
+  height: -webkit-fill-available;
+}
+
+#root {
+  height: 100%;
+  height: -webkit-fill-available;
+}
 
   body {
     @apply bg-background text-foreground font-sans;
