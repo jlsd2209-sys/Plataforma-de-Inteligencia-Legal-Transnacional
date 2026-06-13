@@ -216,9 +216,6 @@ export const FloatingButtons = () => {
         className="w-full max-w-sm bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] overflow-hidden"
       >
         <div className="p-8 flex flex-col items-center text-center">
-          <div className="w-16 h-20 mb-4 flex-shrink-0">
-            <img src={logoShield} alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_12px_rgba(197,160,89,0.4)]" />
-          </div>
           <div className="w-12 h-12 rounded-full flex items-center justify-center mb-4 bg-red-500/10 border border-red-500/30">
             <Trash2 size={22} className="text-red-400" />
           </div>
