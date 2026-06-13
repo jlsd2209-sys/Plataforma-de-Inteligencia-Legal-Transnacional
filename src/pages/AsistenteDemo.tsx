@@ -348,8 +348,7 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
                   inputText.trim() ? (
                     <button onClick={handleSend} className={`${currentColors.sendBtn} p-2.5 rounded-full transition-all active:scale-95`}><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg></button>
                   ) : (
-                    <button onClick={startRecording} className="p-2.5 rounded-full transition-all active:scale-95 bg-gradient-to-br from-[#151f32] to-[#030712] text-[#c5a059] border border-[#c5a059]/30 hover:border-[#c5a059] hover:shadow-[0_0_15px_rgba(197,160,89,0.3)]"><Mic size={20} />
-                    </button>
+                   <button onClick={startRecording} className={`${currentColors.sendBtn} p-2.5 rounded-full transition-all active:scale-95`}><Mic size={20} /></button>
                   )
                 )}
               </div>
