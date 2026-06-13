@@ -129,15 +129,15 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               className="bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] p-8 max-w-md w-full text-center"
             >
               <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${notification.isError ? 'bg-red-600/15 border border-red-600/40' : 'bg-[#c5a059]/10 border border-[#c5a059]/30'}`}>
-                {notification.isError ? <X size={28} className="text-red-500" /> : <Lock size={28} className="text-[#c5a059]" />}
+                {notification.isError ? <X size={28} className="text-red-500" /> : <Lock size={28} className="text-[#e2c792]" />}
               </div>
-              <h3 className={`text-xl font-semibold mb-3 ${notification.isError ? 'text-red-500' : 'text-[#c5a059]'}`}>
+              <h3 className={`text-xl font-semibold mb-3 ${notification.isError ? 'text-red-500' : 'text-[#e2c792]'}`}>
                 {notification.title}
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed mb-6">{notification.message}</p>
               <button
                 onClick={() => setNotification(null)}
-                className={`w-full py-3 rounded-xl font-medium transition-all ${notification.isError ? 'bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-600/40' : 'bg-[#c5a059]/10 text-[#c5a059] hover:bg-[#c5a059]/20 border border-[#c5a059]/30'}`}
+                className={`w-full py-3 rounded-xl font-medium transition-all ${notification.isError ? 'bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-600/40' : 'bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] text-sm font-bold uppercase tracking-wider hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] active:scale-95'}`}
               >
                 Entendido
               </button>
