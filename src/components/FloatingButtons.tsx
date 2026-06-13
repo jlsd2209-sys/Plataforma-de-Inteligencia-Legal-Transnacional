@@ -228,8 +228,8 @@ export const FloatingButtons = () => {
           <div className="flex gap-3 w-full">
             <button
               onClick={() => setConfirmClear(false)}
-             className="flex-1 py-3 rounded-xl text-sm font-medium text-gray-300 border border-gray-700 hover:border-red-500/50 hover:text-red-300 hover:bg-red-500/5 hover:shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all"
-              >
+             className="flex-1 py-3 rounded-xl text-sm font-medium text-gray-300 border border-gray-700 hover:border-white/60 hover:text-white hover:bg-white/5 hover:shadow-[0_0_15px_rgba(255,255,255,0.15)] transition-all"
+            >
               Cancelar
             </button>
             <button
