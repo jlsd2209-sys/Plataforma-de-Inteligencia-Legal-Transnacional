@@ -149,7 +149,8 @@ export default function AsistenteVerificado({ username, onLogout }: { username: 
       onLogout();
     } else if (confirmModal.type === 'clearChat') {
       setChatsHistory(prev => { const s = { ...prev }; delete s[moduloActivo]; return s; });
-      setSelectedFile(null); 
+      setShowScrollBottom(false);
+      setSelectedFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     }
@@ -304,7 +305,7 @@ export default function AsistenteVerificado({ username, onLogout }: { username: 
           </div>
         </header>
 
-        <section className={`flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-none px-4 md:px-12 py-4 md:py-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative ${currentColors.textArea}`} ref={scrollAreaRef} onScroll={handleChatScroll}>
+        <section className={`flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-contain px-4 md:px-12 py-4 md:py-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative ${currentColors.textArea}`} ref={scrollAreaRef} onScroll={handleChatScroll}>
           <div className="flex flex-col space-y-6 w-full max-w-3xl mx-auto flex-shrink-0">
             {currentMessages.length === 0 && (
               <div className="flex gap-4 items-start mb-4">
