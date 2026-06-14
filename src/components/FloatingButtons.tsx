@@ -275,7 +275,7 @@ export const FloatingButtons = () => {
             {/* Header del Chat */}
             <div className="relative p-4 border-b border-[#c5a059]/20 flex justify-between items-center shrink-0 overflow-hidden min-h-[75px]">
               <div className="absolute inset-0 z-0">
-                <img src="/fondo-servicios.jpg.png" alt="" className="w-full h-full object-cover" />
+                <img src="/fondo-servicios.jpg.png" alt="" onContextMenu={(e) => e.preventDefault()} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-[#0a1526]/85 backdrop-blur-[2px]"></div>
               </div>
               <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
