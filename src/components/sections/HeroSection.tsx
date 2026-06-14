@@ -21,7 +21,7 @@ export const HeroSection = () => {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden py-[100px] pb-0 pt-[50px]">
       {/* Background */}
       <div className="absolute inset-0">
-        <img src={bgCircles} alt="" className="w-full h-full object-cover" />
+        <img src={bgCircles} alt="" onContextMenu={(e) => e.preventDefault()} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-charcoal-dark/40" />
       </div>
       
