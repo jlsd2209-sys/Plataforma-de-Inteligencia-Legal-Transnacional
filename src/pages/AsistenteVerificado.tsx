@@ -409,8 +409,8 @@ export default function AsistenteVerificado({ username, onLogout }: { username: 
                 {/* Mensaje */}
                 <p className="text-gray-300 text-sm leading-relaxed mb-8">
                   {confirmModal.type === 'logout'
-                    ? '¿Seguro que desea cerrar sesión y salir de la plataforma segura?'
-                    : `¿Seguro que desea eliminar el historial de ${confirmModal.modulo}? Esta acción no puede deshacerse.`
+                    ? '¿Quieres cerrar sesión? Tu sesión segura finalizará'
+                    : `¿Deseas eliminar el historial de ${confirmModal.modulo}? Esta acción no se puede deshacer.`
                   }
                 </p>
 
