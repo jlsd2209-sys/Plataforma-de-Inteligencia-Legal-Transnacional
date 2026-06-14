@@ -50,6 +50,7 @@ export const MapSection = () => {
     <section 
       className="relative w-full overflow-hidden bg-navy-dark" 
       style={{ height: p.altura }}
+      onContextMenu={(e) => e.preventDefault()}
     >
       {/* 1. FONDO LIBRE: Abarca el 100% de la pantalla (Z-0) */}
       <div className="absolute inset-0 z-0"
