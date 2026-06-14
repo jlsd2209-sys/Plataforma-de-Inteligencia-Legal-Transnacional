@@ -291,9 +291,9 @@ export default function AsistenteDemo({ onLogout }: { onLogout: () => void }) {
         <section className={`flex-1 min-h-0 flex flex-col overflow-y-auto overscroll-contain px-4 md:px-12 py-4 md:py-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative ${currentColors.textArea}`} ref={scrollAreaRef} onScroll={handleChatScroll}>
           <div className="flex flex-col space-y-6 w-full max-w-3xl mx-auto flex-shrink-0">
             {currentMessages.length === 0 && (
-              <div className="flex gap-4 items-start mb-4">
+              <div className="flex flex-col items-center text-center mb-4 gap-2">
                 <img src={logoShield} className="w-8 h-10 md:w-10 md:h-12 object-contain" alt="." />
-                <div className="space-y-4 mt-1">
+                <div className="space-y-1">
                   <p className={`text-lg md:text-xl font-light ${currentColors.mainTitle}`}>Conectado a la red de <strong>{moduloActivo}</strong>.</p>
                   <p className={`${currentColors.greetingP} leading-relaxed text-[15px] md:text-[16px]`}>¿En qué asunto legal específico puedo ayudarle?</p>
                 </div>
