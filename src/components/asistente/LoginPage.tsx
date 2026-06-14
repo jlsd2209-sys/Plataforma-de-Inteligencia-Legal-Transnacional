@@ -24,7 +24,8 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoginHovered, setIsLoginHovered] = useState(false);
   const [isNotificationHovered, setIsNotificationHovered] = useState(false);
-  
+  const [logoScale, setLogoScale] = useState(false);
+
   const [notification, setNotification] = useState<{ title: string; message: string; isError?: boolean } | null>(null);
 
   const handleLogin = (e: React.FormEvent) => {
@@ -150,20 +151,30 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
 
         {/* Header */}
         <motion.div
-         initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-         className="flex flex-col items-center justify-center text-center pt-8 px-10 group cursor-pointer"
+          initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
+          className="flex flex-col items-center justify-center text-center pt-8 px-10"
         >
-        <div className="relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-          <img
-           src={logoShield}
-           alt="Logo"
-           className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(197,160,89,0.3)]"
-          />
-        </div>
-        <h2 className={`text-center text-xl uppercase tracking-widest font-bold transition-all duration-300 group-hover:gradient-text-gold text-white`}>
-          Plataforma Legal Transnacional
-        </h2>
-       </motion.div>
+          {/* Logo — escala SOLO cuando el cursor está encima de él */}
+          <div
+            className={`relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center transition-transform duration-300 cursor-pointer ${logoScale ? 'scale-110' : 'scale-100'}`}
+            onMouseEnter={() => setLogoScale(true)}
+            onMouseLeave={() => setLogoScale(false)}
+          >
+            <img
+              src={logoShield}
+              alt="Logo"
+              className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(197,160,89,0.3)]"
+            />
+          </div>
+
+          {/* Título — blanco fijo, mayúsculas */}
+          <h1 className="text-xl font-serif tracking-widest uppercase transition-colors duration-300 ${logoScale ? 'gradient-text-gold' : 'text-white'}`}
+              onMouseEnter={() => setLogoScale(true)}
+              onMouseLeave={() => setLogoScale(false)}
+          >
+            Plataforma Legal Transnacional
+          </h1>
+        </motion.div>
 
         {/* ── Cuerpo ── */}
         <div className="px-10 pb-6 pt-6">
