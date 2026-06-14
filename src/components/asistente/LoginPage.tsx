@@ -151,18 +151,20 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         {/* Header */}
         <motion.div
         initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-        className="flex flex-col items-center justify-center text-center pt-8 px-10 group cursor-pointer"
+        className="flex flex-col items-center justify-center text-center pt-8 px-10 cursor-pointer"
+        onMouseEnter={() => setLogoScale(true)}
+        onMouseLeave={() => setLogoScale(false)}
         >
-        <div className="relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+        <div className={`relative w-24 h-28 mb-3 flex-shrink-0 flex items-center justify-center transition-all duration-300 ${logoScale ? 'scale-110' : 'scale-100'}`}>
         <img
         src={logoShield}
         alt="Logo"
         className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(197,160,89,0.3)]"
         />
-        </div>
-        <h2 className={`text-center text-xl uppercase tracking-widest font-bold transition-all duration-300 group-hover:gradient-text-gold text-white`}>
+       </div>
+        <h1 className={`text-xl font-serif tracking-widest uppercase transition-all duration-300 ${logoScale ? 'gradient-text-gold' : 'text-white'}`}>
         Plataforma Legal Transnacional
-        </h2>
+        </h1>
         </motion.div>
 
         {/* ── Cuerpo ── */}
