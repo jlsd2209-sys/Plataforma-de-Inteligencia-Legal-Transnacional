@@ -167,7 +167,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             />
           </div>
 
-          {/* Título}
+          {/* Título*/}
           <h1
               className={`text-xl font-serif tracking-widest uppercase transition-colors duration-300 ${logoScale ? 'gradient-text-gold' : 'text-white'}`}
               onMouseEnter={() => setLogoScale(true)}
