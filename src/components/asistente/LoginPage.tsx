@@ -167,10 +167,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             />
           </div>
 
-          {/* Título — blanco fijo, mayúsculas */}
+          {/* Título*/}
           <h1 className="text-xl font-serif tracking-widest uppercase transition-colors duration-300 ${logoScale ? 'gradient-text-gold' : 'text-white'}`}
-              onMouseEnter={() => setLogoScale(true)}
-              onMouseLeave={() => setLogoScale(false)}
+            onMouseEnter={() => setLogoScale(true)}
+            onMouseLeave={() => setLogoScale(false)}
           >
             Plataforma Legal Transnacional
           </h1>
