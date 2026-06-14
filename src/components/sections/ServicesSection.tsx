@@ -58,7 +58,7 @@ export const ServicesSection = () => {
       
       {/* ── FONDO ── */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img src="/fondo-servicios.jpg.png" alt="" className="w-full h-full object-cover" />
+        <img src="/fondo-servicios.jpg.png" alt="" onContextMenu={(e) => e.preventDefault()} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-[#0a1526]/85 backdrop-blur-[2px]"></div>
       </div>
 
