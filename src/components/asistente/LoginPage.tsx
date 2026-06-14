@@ -167,10 +167,14 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             />
           </div>
 
-          {/* Título — blanco fijo, mayúsculas */}
-          <h1 className="text-xl font-serif tracking-widest uppercase text-white">
-            Plataforma Legal Transnacional
-          </h1>
+          {/* Título}
+          <h1
+              className={`text-xl font-serif tracking-widest uppercase transition-colors duration-300 ${logoScale ? 'gradient-text-gold' : 'text-white'}`}
+              onMouseEnter={() => setLogoScale(true)}
+              onMouseLeave={() => setLogoScale(false)}
+              >
+              Plataforma Legal Transnacional
+          </h1>     
         </motion.div>
 
         {/* ── Cuerpo ── */}
