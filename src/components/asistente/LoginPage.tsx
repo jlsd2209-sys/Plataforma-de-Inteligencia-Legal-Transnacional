@@ -163,6 +163,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             <img
               src={logoShield}
               alt="Logo"
+              onContextMenu={(e) => e.preventDefault()}
               className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(197,160,89,0.3)]"
             />
           </div>
