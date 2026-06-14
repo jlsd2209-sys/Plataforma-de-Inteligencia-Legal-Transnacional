@@ -102,6 +102,7 @@ export const MapSection = () => {
           <img
             src="/Mapa con escudo.png"
             alt="Mapa con escudo"
+            onContextMenu={(e) => e.preventDefault()}
             style={{ 
               width: p.mapa.tamaño, 
               opacity: p.mapa.opacidad,
