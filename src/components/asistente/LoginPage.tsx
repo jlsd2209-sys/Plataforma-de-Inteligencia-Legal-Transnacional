@@ -108,7 +108,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
     <div className="relative flex min-h-screen w-full items-center justify-center bg-[#0a1526] font-sans overflow-hidden">
       {/* Fondo */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img src="/fondo-servicios.jpg.png" alt="Fondo" className="w-full h-full object-cover" />
+        <img src="/fondo-servicios.jpg.png" alt="." onContextMenu={(e) => e.preventDefault()} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-[#0a1526]/85 backdrop-blur-[2px]"></div>
       </div>
       <div className="absolute inset-0 z-0 pointer-events-none opacity-50">
