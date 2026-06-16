@@ -129,7 +129,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               className="bg-gradient-to-br from-[#151f32]/95 via-[#0a1526]/95 to-[#030712]/95 backdrop-blur-xl border border-[#c5a059]/30 rounded-3xl shadow-[0_0_40px_rgba(197,160,89,0.15)] px-10 py-8 max-w-md w-full text-center"
             >
               <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${notification.isError ? 'bg-red-600/15 border border-red-600/40' : 'bg-green-500/10 border border-green-500/30'}`}>
-                {notification.isError ? <X size={28} className="text-red-500" /> : <ShieldCheck size={28} className="text-green-500" />}
+                {notification.isError ? <X size={28} className="text-red-500" /> : <ShieldCheck size={36} className="text-green-500" />}
               </div>
               <h3 className={`text-xl font-semibold mb-3 ${notification.isError ? 'text-red-500' : 'text-[#e2c792]'}`}>
                 {notification.title}
