@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import logoShield from '@/assets/logo.png.png';
 import { Particles } from '@/components/Particles';
-import { Lock, Eye, EyeOff, User, X } from 'lucide-react';
+import { Lock, Eye, EyeOff, User, X, ShieldCheck} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FloatingButtons } from '@/components/FloatingButtons';
 
