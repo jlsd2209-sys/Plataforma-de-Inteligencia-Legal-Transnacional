@@ -131,10 +131,10 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${notification.isError ? 'bg-red-600/15 border border-red-600/40' : 'bg-green-500/10 border border-green-500/30'}`}>
                 {notification.isError ? <X size={38} className="text-red-500" /> : <ShieldCheck size={38} className="text-green-500" />}
               </div>
-              <h3 className={`text-xl font-semibold mb-3 ${notification.isError ? 'text-red-500' : 'text-[#e2c792]'}`}>
+              <h3 className={`text-xl font-semibold mb-3 ${notification.isError ? 'text-red-500' : 'text-green-500'}`}>
                 {notification.title}
               </h3>
-              <p className="text-white text-sm leading-relaxed mb-6">{notification.message}</p>
+              <p className="text-white uppercase text-sm leading-relaxed mb-6">{notification.message}</p>
               <button
                 onClick={() => setNotification(null)}
                className="w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-[14px] text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95"
