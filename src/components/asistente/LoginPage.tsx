@@ -131,7 +131,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${notification.isError ? 'bg-red-600/15 border border-red-600/40' : 'bg-green-500/10 border border-green-500/30'}`}>
                 {notification.isError ? <X size={38} className="text-red-500" /> : <ShieldCheck size={38} className="text-green-500" />}
               </div>
-              <h3 className={`text-xl font-semibold uppercase mb-3 ${notification.isError ? 'text-red-500' : 'text-green-500'}`}>
+              <h3 className={`text-xl font-semibold uppercase mb-3 ${notification.isError ? 'text-red-500' : 'text-white'}`}>
                 {notification.title}
               </h3>
               <p className="text-white text-sm leading-relaxed mb-6">{notification.message}</p>
