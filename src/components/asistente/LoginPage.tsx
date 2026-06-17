@@ -102,7 +102,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const submitBtnClass = "w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#c5a059] via-[#e2c792] to-[#c5a059] text-[#0a1526] font-bold uppercase tracking-wider py-[14px] text-sm rounded-xl hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all active:scale-95";
   const footerClass = "mt-4 pt-4 border-t border-gray-800 text-center space-y-3";
   // Efecto original: dorado sólido → blanco al hover, sin degradado
-  const goldLink = "gradient-text-gold hover:text-white transition-colors duration-300 font-medium";
+  const goldLink = "text-[#e2c792] hover:text-white transition-colors duration-300 font-medium";
 
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center bg-[#0a1526] font-sans overflow-hidden">
