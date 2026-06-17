@@ -152,7 +152,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-          className="flex flex-col items-center justify-center text-center pt-8 px-10 group cursor-pointer"
+          className="flex flex-col items-center justify-center text-center pt-8 px-10"
         >
           {/* Logo — escala SOLO cuando el cursor está encima de él */}
           <div
@@ -169,13 +169,12 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           </div>
 
           {/* Título — blanco fijo, mayúsculas */}
-          <h1 className="relative text-xl font-serif tracking-widest uppercase">
-            <span className="absolute inset-0 gradient-text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              Plataforma Legal Transnacional
-            </span>
-            <span className="relative text-white group-hover:opacity-0 transition-opacity duration-300">
-              Plataforma Legal Transnacional
-            </span>
+          <h1
+            className={`text-xl font-serif tracking-widest uppercase transition-colors duration-300 ${logoScale ? 'gradient-text-gold' : 'text-white'}`}
+            onMouseEnter={() => setLogoScale(true)}
+            onMouseLeave={() => setLogoScale(false)}
+          >
+            Plataforma Legal Transnacional            
           </h1>
         </motion.div>
 
